@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4471588638909666514}
   - component: {fileID: 4122366842157727833}
-  - component: {fileID: 2947247580114835410}
   - component: {fileID: 8237438937198444511}
   m_Layer: 0
   m_Name: FXCamera
@@ -43,7 +42,7 @@ Camera:
   m_GameObject: {fileID: 446588000145234005}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -85,21 +84,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &2947247580114835410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446588000145234005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ccd92a04b4589409c1fa6038fa381d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ActiveWithinScene: SingleResponsibility
-  m_ObjectToDisable: {fileID: 446588000145234005}
-  m_Debug: 0
 --- !u!114 &8237438937198444511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,12 +122,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &7949569535200226446
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +139,6 @@ GameObject:
   - component: {fileID: 2264963431028461305}
   - component: {fileID: 378858872449823257}
   - component: {fileID: 5279930722921062035}
-  - component: {fileID: 2340738338654828466}
   - component: {fileID: 8808879203669569572}
   m_Layer: 0
   m_Name: Scene Camera
@@ -239,21 +222,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7949569535200226446}
   m_Enabled: 1
---- !u!114 &2340738338654828466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7949569535200226446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ccd92a04b4589409c1fa6038fa381d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ActiveWithinScene: SingleResponsibility
-  m_ObjectToDisable: {fileID: 7949569535200226446}
-  m_Debug: 0
 --- !u!114 &8808879203669569572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,9 +261,9 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0

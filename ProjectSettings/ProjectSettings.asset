@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: ad0e4d391d887014dab3731bc148652c
+  productGUID: 3d5b21f3ce0dfe74085442e64a5f5ddc
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -250,7 +250,7 @@ PlayerSettings:
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
-  clonedFromGUID: 0f0dd560cb348854f81b7d509d3d18b9
+  clonedFromGUID: bb01f9724448a414b92cf9df557507c8
   templatePackageId: 
   templateDefaultScene: Assets/Scenes/SampleScene.unity
   useCustomMainManifest: 0
@@ -841,7 +841,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 2
+  activeInputHandler: 0
   windowsGamepadBackendHint: 0
   cloudProjectId: c551c6d9-e8ae-4f2f-8bcf-06229dc8c1c9
   framebufferDepthMemorylessMode: 0
