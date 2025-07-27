@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Lemon
   m_EditorClassIdentifier: 
   itemName: Lemon
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
-  description: 
+  icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  prefab: {fileID: 8421618194728900843, guid: 3b2f152ae5e671243b62b1a496c107f2, type: 3}
+  description: A Lemon
   itemType: 0
   isStackable: 1
   value: 0

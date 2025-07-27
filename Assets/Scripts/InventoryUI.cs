@@ -12,11 +12,21 @@ public class InventoryUI : MonoBehaviour
     //[Tooltip("The parent object that will hold all the inventory slot UI elements.")]
     //[SerializeField] private Transform itemsParent;
 
+    [Tooltip("The inventory pannel that shows the player's items")]
+    [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject itemsParent;
     [Tooltip("The UI prefab for a single inventory slot.")]
     [SerializeField] private GameObject inventorySlotPrefab;
+    
+    [SerializeField] private Text titleText;
 
     // We need a reference to the data source, but only to read from it.
+    [Header("Data Source")]
     [SerializeField] private InventoryManager inventoryManager;
+
+    // State Management
+    public bool isSelectionMode { get; private set; } = false;
+    private IngredientStation requestingStation;
 
     // --- Subscribing and Unsubscribing to the Event ---
 
@@ -37,6 +47,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
+        inventoryPanel.SetActive(false);
         // Initial drawing of the UI when the game starts.
         RedrawUI();
     }
@@ -49,7 +60,7 @@ public class InventoryUI : MonoBehaviour
         Debug.Log("Redrawing Inventory UI...");
 
         // Clear all existing UI slots to prevent duplicates.
-        foreach (Transform child in transform)
+        foreach (Transform child in itemsParent.transform)
         {
             Destroy(child.gameObject);
         }
@@ -60,14 +71,14 @@ public class InventoryUI : MonoBehaviour
         // Create a new UI slot for each item in the inventory.
         foreach (ItemData item in currentItems)
         {
-            GameObject slotInstance = Instantiate(inventorySlotPrefab, transform);
+            GameObject slotInstance = Instantiate(inventorySlotPrefab, itemsParent.transform);
 
             // Get the InventorySlotUI component from the newly created slot.
             var slotUI = slotInstance.GetComponent<InventorySlotUI>();
             if (slotUI != null)
             {
                 // Pass the item data and a reference to the manager to the slot.
-                slotUI.Setup(item, inventoryManager);
+                slotUI.Setup(item, inventoryManager, this);
             }
             else
             {
@@ -75,4 +86,31 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
+    public void OpenForSelection(IngredientStation station)
+    {
+        isSelectionMode = true;
+        requestingStation = station;
+        inventoryManager.ToggleInventoryVisibility();
+        //inventoryPanel.SetActive(true);
+        if (titleText != null) titleText.text = "Select an Ingredient";
+    }
+
+    public void OnItemSelected(ItemData item)
+    {
+        if (isSelectionMode && requestingStation != null)
+        {
+            requestingStation.PlaceItem(item, this.inventoryManager);
+            CloseInventory();
+        }
+    }
+
+    public void CloseInventory()
+    {
+        isSelectionMode = false;
+        requestingStation = null;
+        inventoryManager.ToggleInventoryVisibility();
+        //inventoryPanel.SetActive(false);
+    }
+
 }

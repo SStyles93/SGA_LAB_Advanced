@@ -8,16 +8,19 @@ public class InventorySlotUI : MonoBehaviour
 {
     private ItemData item;
     private InventoryManager inventoryManager;
+    private InventoryUI inventoryUI;
 
     /// <summary>
-    /// Sets up the slot with the necessary data.
+    /// 
     /// </summary>
-    /// <param name="newItem">The item this slot will represent.</param>
-    /// <param name="manager">A reference to the inventory manager.</param>
-    public void Setup(ItemData newItem, InventoryManager manager)
+    /// <param name="newItem"></param>
+    /// <param name="manager"></param>
+    /// <param name="ui"></param>
+    public void Setup(ItemData newItem, InventoryManager manager, InventoryUI ui)
     {
         item = newItem;
         inventoryManager = manager;
+        inventoryUI = ui;
 
         if (transform.TryGetComponent(out Image icon))
         {
@@ -31,29 +34,30 @@ public class InventorySlotUI : MonoBehaviour
     /// </summary>
     public void OnSlotClicked()
     {
-        if (item == null || inventoryManager == null) return;
+        if (item == null || inventoryManager == null || inventoryUI == null) return;
 
-        // Check if the item is a UsableItemData (like a potion).
-        if (item is UsableItemData)
+        // Check if we are in selection mode
+        if (inventoryUI.isSelectionMode)
         {
-            // If it's usable, call the UseItem method.
-            inventoryManager.UseItem(item);
+            // Check if Item is an Ingredient
+            if (item.itemType == ItemType.Ingredient)
+            {
+                inventoryManager.RemoveItem(item);
+                inventoryUI.OnItemSelected(item);
+            }
+            else
+            {
+                Debug.Log($"{item.name} is not an ingredient.");
+            }
         }
         else
         {
-            RemoveItem();
+            // Check if the item is a UsableItemData (like a potion).
+            if (item is UsableItemData)
+            {
+                // If it's usable, call the UseItem method.
+                inventoryManager.UseItem(item);
+            }
         }
-    }
-
-    private void RemoveItem()
-    {
-        // Ensure we have an item and a manager reference before trying to do anything.
-        if (item == null || inventoryManager == null)
-        {
-            return;
-        }
-
-        // Tell the InventoryManager to remove the specific item this slot represents.
-        inventoryManager.RemoveItem(item);
     }
 }

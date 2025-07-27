@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Potion_BLUE
   m_EditorClassIdentifier: 
   itemName: Usable
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   prefab: {fileID: 9122204283329630171, guid: e5206325629ecba438acbe2ba38b623c, type: 3}
   description: 'Blue Usable potion
 
@@ -24,3 +24,5 @@ MonoBehaviour:
   itemID: _ab776f9f-cd22-4298-b8b2-7f3eba44284c
   useMessage: Postion was used
   healthToRestore: 10
+  isHealOverTime: 0
+  duration: 5

@@ -21,4 +21,6 @@ MonoBehaviour:
   value: 1
   itemID: _ab776f9f-cd22-4298-b8b2-7f3eba44284c
   useMessage: Postion was used
-  healthToRestore: 10
+  healthToRestore: 20
+  isHealOverTime: 1
+  duration: 5

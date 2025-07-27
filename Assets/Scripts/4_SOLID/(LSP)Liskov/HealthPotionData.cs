@@ -8,8 +8,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Healing Potion", menuName = "Alchemist's Inventory/Healing Potion")]
 public class HealingPotionData : UsableItemData
 {
-    [Tooltip("The amount of health to restore when used.")]
+    [Header("Healing Properties")]
+    [Tooltip("The total amount of health to restore.")]
     public int healthToRestore;
+
+    [Space]
+    [Tooltip("Is this a heal-over-time effect?")]
+    public bool isHealOverTime = false;
+
+    [Tooltip("If heal-over-time, how many seconds should the effect last?")]
+    [Range(1f, 30f)]
+    public float duration = 5f;
+
 
     /// <summary>
     /// The concrete implementation of the Use method for this specific item.
@@ -19,8 +29,7 @@ public class HealingPotionData : UsableItemData
         // Find the health component on the user and heal them.
         if (user.TryGetComponent<PlayerHealth>(out var playerHealth))
         {
-            playerHealth.Heal(healthToRestore);
-            Debug.Log($"{user.name} used {itemName} and restored {healthToRestore} health.");
+            playerHealth.StartHealing(this);
         }
     }
 }

@@ -20,9 +20,10 @@ public class CraftingTable : MonoBehaviour, IActivatable
     /// <summary>
     /// This method will be called when the player activated the table
     /// </summary>
-    public void Activate()
+    public void Activate(GameObject activator)
     {
-        Debug.Log("Table Activated");
+        Debug.Log($"Table Activated by {activator.name}");
+        playerInventory = activator.GetComponent<InventoryManager>();
         Craft();
     }
 

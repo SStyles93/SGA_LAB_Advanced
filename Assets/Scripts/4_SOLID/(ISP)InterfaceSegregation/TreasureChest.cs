@@ -10,7 +10,7 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable
     [SerializeField] private int health = 30;
     private bool isOpen = false;
 
-    public void Activate()
+    public void Activate(GameObject activator)
     {
         if (isOpen)
         {
@@ -18,7 +18,7 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable
             return;
         }
         isOpen = true;
-        Debug.Log("The chest creaks open! You find some loot.");
+        Debug.Log($"The chest creaks open! {activator.name} finds some loot.");
         // In a real game, you would spawn items here.
     }
 

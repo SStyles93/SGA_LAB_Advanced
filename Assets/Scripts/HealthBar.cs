@@ -45,12 +45,12 @@ public class HealthBarUI : MonoBehaviour
     /// This method is called by the OnHealthChanged event.
     /// It receives the new health values and updates the slider.
     /// </summary>
-    private void UpdateHealthBar(int currentHealth, int maxHealth)
+    private void UpdateHealthBar(float currentHealth, float maxHealth)
     {
         // The slider's value is a normalized value (between 0 and 1).
         // We calculate this by dividing the current health by the max health.
         // We must cast one of them to a float to avoid integer division (which would result in 0 or 1).
-        healthSlider.value = (float)currentHealth / maxHealth;
+        healthSlider.value = currentHealth / maxHealth;
         healthImage.color = healthGradient.Evaluate(healthSlider.value);
 
         DisplayHealthBar();

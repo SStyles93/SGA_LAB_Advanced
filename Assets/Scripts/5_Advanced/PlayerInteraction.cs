@@ -24,6 +24,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Awake()
     {
+        if(playerCamera == null) playerCamera = Camera.main;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
     }
@@ -36,6 +37,8 @@ public class PlayerInteraction : MonoBehaviour
     public void HandleLeftClick()
     {
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.blue, 2.0f);
 
         // --- Step 1: Fire a raycast to identify an interactable target ---
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, interactableLayer))
@@ -88,7 +91,7 @@ public class PlayerInteraction : MonoBehaviour
         }
         else if (target.TryGetComponent<IActivatable>(out var activatable))
         {
-            activatable.Activate();
+            activatable.Activate(this.gameObject);
         }
         else if (target.TryGetComponent<ICollectable>(out var collectable))
         {

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 265047ead1d948642829bc3e13ab37ca, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  itemName: 
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
-  description: 
+  itemName: Grass
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  prefab: {fileID: 3924092470267706323, guid: de958b43719b8b54da499d7f1bebf51e, type: 3}
+  description: Green Grass
   itemType: 0
   isStackable: 1
   value: 0

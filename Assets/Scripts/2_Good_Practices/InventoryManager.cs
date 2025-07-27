@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
 
     [Tooltip("The pannel used to display the Inventory")]
     [SerializeField] private GameObject inventoryPannel = null;
-    [SerializeField] private GameObject gameCanvas = null;
+    [SerializeField] private GameObject savePannel = null;
 
     // The player's inventory is a private list. No other script can directly
     // modify this list, which prevents bugs. They must use public methods like AddItem().
@@ -39,7 +39,7 @@ public class InventoryManager : MonoBehaviour
         bool visibleState = inventoryPannel.activeSelf;
         visibleState = !visibleState;
         inventoryPannel.SetActive(visibleState);
-        gameCanvas.SetActive(!visibleState);
+        savePannel.SetActive(visibleState);
         OnInventoryChanged?.Invoke();
     }
 

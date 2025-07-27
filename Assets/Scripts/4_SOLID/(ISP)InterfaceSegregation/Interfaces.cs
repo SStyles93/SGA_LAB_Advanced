@@ -1,10 +1,15 @@
+using UnityEngine;
 /// <summary>
 /// This interface defines an object that can be activated.
 /// A lever or a button would implement this.
 /// </summary>
 public interface IActivatable
 {
-    void Activate();
+    /// <summary>
+    /// Activates the object.
+    /// </summary>
+    /// <param name="activator">The GameObject of the character performing the activation.</param>
+    void Activate(GameObject activator);
 }
 
 /// <summary>
