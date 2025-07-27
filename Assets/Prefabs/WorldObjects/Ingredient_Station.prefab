@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5472498402150082019}
   - component: {fileID: 7947572281497778158}
   - component: {fileID: 4662989850305289044}
+  - component: {fileID: 519654807583234661}
   m_Layer: 10
   m_Name: Ingredient_Station
   m_TagString: Untagged
@@ -128,6 +129,19 @@ MonoBehaviour:
   currentItem: {fileID: 0}
   worldItemPosition: {fileID: 5497489954662029111}
   currentWorldItem: {fileID: 0}
+--- !u!114 &519654807583234661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632010269350250466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bc93ad1902cc454492ee9108418ab89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 457e793f-56d9-4734-ba23-fbb3708e3236
 --- !u!1 &3383928046734527705
 GameObject:
   m_ObjectHideFlags: 0

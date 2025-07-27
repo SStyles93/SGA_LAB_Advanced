@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class IngredientStation : MonoBehaviour, IActivatable
+public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
 {
     [Header("Dependencies")]
     [Tooltip("Reference to the main Inventory UI panel.")]
@@ -47,7 +49,7 @@ public class IngredientStation : MonoBehaviour, IActivatable
     /// <summary>
     /// Places an item on this station.
     /// </summary>
-    public void PlaceItem(ItemData item, InventoryManager placerInventory)
+    public void PlaceItem(ItemData item, InventoryManager placerInventory = null)
     {
         // We should only accept items that are ingredients.
         if (item.itemType == ItemType.Ingredient)
@@ -102,4 +104,71 @@ public class IngredientStation : MonoBehaviour, IActivatable
 #endif
         }
     }
+
+    #region ISaveable Implementation
+
+    /// <summary>
+    /// Captures the state of the ingredient station for saving.
+    /// </summary>
+    /// <returns>A dictionary containing the ID of the item on the station, or an empty dictionary if there is no item.</returns>
+    public Dictionary<string, string> CaptureState()
+    {
+        var state = new Dictionary<string, string>();
+
+        // Check if there is an item currently on the station.
+        if (currentItem != null)
+        {
+            // If there is, we save its unique ItemID string.
+            // We use a clear key like "currentItemId" to know what this data represents.
+            state.Add("currentItemId", currentItem.ItemID);
+        }
+        // If currentItem is null, we simply return an empty dictionary.
+        // The absence of the key on load will tell us the station was empty.
+
+        return state;
+    }
+
+    /// <summary>
+    /// Restores the state of the ingredient station from loaded data.
+    /// </summary>
+    /// <param name="state">The dictionary containing the saved data.</param>
+    public void RestoreState(Dictionary<string, string> state)
+    {
+        // Check if the loaded data contains a value for our item.
+        if (state.TryGetValue("currentItemId", out string savedItemId))
+        {
+            // If an ID was saved, we need to find the corresponding ItemData asset.
+            // This lookup logic should be centralized for efficiency, but for simplicity,
+            // we can use Resources.FindObjectsOfTypeAll here.
+            var allItems = Resources.FindObjectsOfTypeAll<ItemData>();
+            ItemData foundItem = null;
+            foreach (var itemAsset in allItems)
+            {
+                if (itemAsset.ItemID == savedItemId)
+                {
+                    foundItem = itemAsset;
+                    break; // Found the item, no need to search further.
+                }
+            }
+
+            if (foundItem != null)
+            {
+                // If we found the matching ItemData asset, place it on the station.
+                PlaceItem(foundItem);
+            }
+            else
+            {
+                Debug.LogWarning($"IngredientStation {gameObject.name} could not find an ItemData asset with saved ID: {savedItemId}. Station will be empty.");
+                currentItem = null; // Ensure station is empty if item not found.
+            }
+        }
+        else
+        {
+            // If no ID was found in the save data, it means the station was empty.
+            // We ensure the currentItem is null.
+            currentItem = null;
+        }
+    }
+
+    #endregion
 }

@@ -369,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebefa098abb5cb42b85c6713bf4361f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 1871690413}
   SAVE_FILE_NAME: game_save.json
 --- !u!4 &653727158
 Transform:
@@ -1182,6 +1181,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 304163591113121753, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
+      propertyPath: uniqueId
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1536209916143978832, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
+      propertyPath: uniqueId
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2821138438683272637, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
       propertyPath: m_Name
       value: CraftingTable
@@ -1237,6 +1244,10 @@ PrefabInstance:
     - target: {fileID: 8947785413239055579, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
       propertyPath: m_Size.y
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139905950733669716, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
+      propertyPath: uniqueId
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
