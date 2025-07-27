@@ -16,6 +16,11 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 
     public event Action<int, int> OnHealthChanged;
 
+    private void Start()
+    {
+        currentHealth = maxHealth;
+    }
+
     public void Activate(GameObject activator)
     {
         if (isOpen)
