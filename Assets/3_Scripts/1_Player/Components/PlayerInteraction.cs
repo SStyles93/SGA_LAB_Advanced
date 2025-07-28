@@ -91,17 +91,13 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
         {
             damageable.TakeDamage(15);
         }
-        else if (target.TryGetComponent<IActivatable>(out var activatable))
+        if (target.TryGetComponent<IActivatable>(out var activatable))
         {
             activatable.Activate(this.gameObject);
         }
-        else if (target.TryGetComponent<ICollectable>(out var collectable))
+        if (target.TryGetComponent<ICollectable>(out var collectable))
         {
             collectable.Collect(transform.GetComponent<PlayerInventoryManager>());
-        }
-        else
-        {
-            Debug.LogWarning($"Player is in range of {target.name}, but it has no recognized interaction interface!");
         }
 
         followAndInteractCoroutine = null;

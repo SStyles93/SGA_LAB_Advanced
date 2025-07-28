@@ -7,14 +7,14 @@ using UnityEngine;
 /// A treasure chest can be activated (opened) and also damaged (broken).
 /// It doesn't need to implement ICollectable, so it isn't forced to.
 /// </summary>
-public class TreasureChest : MonoBehaviour, IActivatable, /*IDamageable,*/ ISaveable 
+public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable 
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 50;
     [SerializeField] private int currentHealth;
     private bool isOpen = false;
 
-    //public event Action<int, int> OnHealthChanged;
+    public event Action<int, int> OnHealthChanged;
 
     public static event Action<bool> OnChestOpen;
 
@@ -35,19 +35,8 @@ public class TreasureChest : MonoBehaviour, IActivatable, /*IDamageable,*/ ISave
 
     public void Activate(GameObject activator)
     {
+        if (currentHealth > 0) return;
         OnChestOpen?.Invoke(isOpen = !isOpen);
-
-
-        //if (isOpen)
-        //{
-        //    OnChestOpen?.Invoke(false);
-        //    return;
-        //}
-        //else
-        //{
-        //    OnChestOpen?.Invoke(true);
-        //    return;
-        //}
     }
 
     private void OpenChest(bool value)
@@ -55,19 +44,16 @@ public class TreasureChest : MonoBehaviour, IActivatable, /*IDamageable,*/ ISave
         isOpen = value;
     }
 
-    //public void TakeDamage(int amount)
-    //{
-    //    if (isOpen) return;
+    public void TakeDamage(int amount)
+    {
+        if(currentHealth <= 0) return;
 
-    //    currentHealth -= amount;
-    //    Debug.Log($"The chest takes {amount} damage. Health is now {currentHealth}.");
-    //    if (currentHealth <= 0)
-    //    {
-    //        isOpen = true;
-    //        Debug.Log("The chest shatters into pieces! You find some loot.");
-    //    }
-    //    OnHealthChanged?.Invoke(currentHealth, maxHealth);
-    //}
+        currentHealth -= amount;
+        if (currentHealth <= 0) currentHealth = 0;
+
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        Debug.Log($"The chest takes {amount} damage. Health is now {currentHealth}.");
+    }
 
     #region ISaveable Implementation
 

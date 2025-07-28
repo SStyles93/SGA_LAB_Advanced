@@ -67,7 +67,7 @@ public class WorldHealthBar : MonoBehaviour
     private void LateUpdate()
     {
         if (mainCamera == null) return;
-        transform.forward = mainCamera.transform.forward;
+        transform.forward = -mainCamera.transform.forward;
     }
 
     public void OnHealthChanged(float normalizedHealth)
@@ -129,11 +129,11 @@ public class WorldHealthBar : MonoBehaviour
 
         switch (fillAnchor)
         {
-            case FillAnchor.Right:
+            case FillAnchor.Left:
                 positionOffset = shiftAmount;
                 break;
 
-            case FillAnchor.Left:
+            case FillAnchor.Right:
                 positionOffset = -shiftAmount;
                 break;
 
@@ -167,7 +167,6 @@ public class WorldHealthBar : MonoBehaviour
     {
         if (healthText != null)
         {
-            if(currentHealth <= 0) currentHealth = 0;
             // Format the string to show "current / max".
             healthText.text = $"{currentHealth} / {maxHealth}";
         }
