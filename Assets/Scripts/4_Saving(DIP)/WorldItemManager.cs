@@ -33,7 +33,7 @@ public class WorldItemManager : MonoBehaviour
 
     // The list that will hold all the active items.
     // It's private to prevent other scripts from modifying it directly.
-    private readonly List<WorldItem> activeWorldItems = new List<WorldItem>();
+    [SerializeField] private List<WorldItem> activeWorldItems = new List<WorldItem>();
 
     /// <summary>
     /// Adds a WorldItem to the tracked list. Called by the item itself.

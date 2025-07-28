@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Crafting Recipe", menuName = "Alchemist's Inventory/Crafting Recipe")]
-public class CraftingRecipe : ScriptableObject
+public class CraftingRecipe : ItemData
 {
     [Header("Recipe Definition")]
     [Tooltip("The list of ingredients required to craft the item.")]

@@ -40,7 +40,16 @@ public class WorldItem : MonoBehaviour, ICollectable
         }
     }
 
-    public void Collect(InventoryManager collectorInventory)
+    private void Start()
+    {
+        //Ensure registering of Item
+        if (WorldItemManager.Instance != null)
+        {
+            WorldItemManager.Instance.Register(this);
+        }
+    }
+
+    public void Collect(PlayerInventoryManager collectorInventory)
     {
         // 1. Check if the dependencies are valid.
         if (itemData == null)

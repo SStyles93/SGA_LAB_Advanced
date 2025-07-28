@@ -97,7 +97,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
         }
         else if (target.TryGetComponent<ICollectable>(out var collectable))
         {
-            collectable.Collect(transform.GetComponent<InventoryManager>());
+            collectable.Collect(transform.GetComponent<PlayerInventoryManager>());
         }
         else
         {

@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// Manages the player's inventory. This script demonstrates safe and efficient
 /// coding practices, including dependency management and access modifiers.
 /// </summary>
-public class InventoryManager : MonoBehaviour, ISaveable
+public class PlayerInventoryManager : MonoBehaviour, ISaveable
 {
     // --- Good Practice: Cached References & [SerializeField] ---
     // Instead of using Find() or GetComponent() repeatedly in Update(), we assign
@@ -28,11 +28,15 @@ public class InventoryManager : MonoBehaviour, ISaveable
 
     // The player's inventory is a private list. No other script can directly
     // modify this list, which prevents bugs. They must use public methods like AddItem().
+    [Tooltip("A list of all Items in the inventory.")]
     [SerializeField] private List<ItemData> inventory = new List<ItemData>();
+
+    [Tooltip("A list of all possible recipes the player can use.")]
+    [SerializeField] private List<CraftingRecipe> availableRecipes;
 
     public GameObject GetInventoryPannel() => inventoryPannel;
     public List<ItemData> GetInventory() => inventory;
-
+    public List<CraftingRecipe> GetAvailableRecipes() => availableRecipes;
 
     public static event Action OnInventoryChanged;
 
@@ -56,17 +60,26 @@ public class InventoryManager : MonoBehaviour, ISaveable
     {
         if (itemToAdd == null) return;
 
-        if (inventory.Count > 10)
+        if (itemToAdd is CraftingRecipe recipe)
         {
-            Debug.Log("Inventory is full");
-            return;
+            if (!availableRecipes.Contains(recipe))
+                availableRecipes.Add(recipe);
         }
-        inventory.Add(itemToAdd);
-        Debug.Log($"Added {itemToAdd.itemName} to inventory.");
+        else
+        {
+            if (inventory.Count > 10)
+            {
+                Debug.Log("Inventory is full");
+                return;
+            }
 
-        OnInventoryChanged?.Invoke();
+            inventory.Add(itemToAdd);
+            Debug.Log($"Added {itemToAdd.itemName} to inventory.");
 
-        // Update the status text to show what was added.
+            OnInventoryChanged?.Invoke();
+
+            // Update the status text to show what was added.
+        }
         UpdateStatus(itemToAdd);
     }
 
@@ -143,6 +156,9 @@ public class InventoryManager : MonoBehaviour, ISaveable
             case ItemType.Key:
                 Debug.Log("This is a key. It can be used to unlock something.");
                 break;
+            case ItemType.Recipe:
+                Debug.Log("This is a recipe. It can be used to craft something.");
+                break;
 
             // The 'default' case runs if none of the other cases match.
             // It's good practice to include it to handle unexpected values.
@@ -159,6 +175,9 @@ public class InventoryManager : MonoBehaviour, ISaveable
         // Get a list of all the ItemIDs from the current inventory.
         // The LINQ Select method is a clean, modern way to do this.
         List<string> itemIDs = inventory.Select(item => item.ItemID).ToList();
+        
+        //We are adding the list of recipes to the items list (since recipes are also items
+        itemIDs.AddRange(availableRecipes.Select(item => item.ItemID).ToList());
 
         // Join the list of IDs into a single string, separated by commas.
         // This is a robust way to store a list of strings in our key-value pair system.
@@ -181,8 +200,9 @@ public class InventoryManager : MonoBehaviour, ISaveable
         // Check if the saved data contains an "inventory" key.
         if (state.TryGetValue("inventory", out string savedInventoryString))
         {
-            // Clear the current inventory before loading the new one.
+            // Clear the current inventory and recipe list before loading the new one.
             inventory.Clear();
+            availableRecipes.Clear();
 
             // If the saved string is empty, there's nothing to load.
             if (string.IsNullOrEmpty(savedInventoryString))
@@ -204,7 +224,8 @@ public class InventoryManager : MonoBehaviour, ISaveable
             {
                 if (allItems.TryGetValue(id, out ItemData itemAsset))
                 {
-                    inventory.Add(itemAsset);
+                    if( itemAsset is CraftingRecipe recipe) availableRecipes.Add(recipe);
+                    else inventory.Add(itemAsset);
                 }
                 else
                 {
@@ -212,7 +233,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
                 }
             }
 
-            Debug.Log($"Inventory loaded with {inventory.Count} items.");
+            Debug.Log($"Inventory loaded with {inventory.Count} items and {availableRecipes.Count} available recipes.");
 
             // After loading the inventory, broadcast the change to update the UI.
             OnInventoryChanged?.Invoke();

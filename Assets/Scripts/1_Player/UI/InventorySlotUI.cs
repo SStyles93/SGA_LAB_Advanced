@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class InventorySlotUI : MonoBehaviour
 {
     private ItemData item;
-    private InventoryManager inventoryManager;
+    private PlayerInventoryManager inventoryManager;
     private InventoryUI inventoryUI;
 
     /// <summary>
@@ -16,7 +16,7 @@ public class InventorySlotUI : MonoBehaviour
     /// <param name="newItem"></param>
     /// <param name="manager"></param>
     /// <param name="ui"></param>
-    public void Setup(ItemData newItem, InventoryManager manager, InventoryUI ui)
+    public void Setup(ItemData newItem, PlayerInventoryManager manager, InventoryUI ui)
     {
         item = newItem;
         inventoryManager = manager;

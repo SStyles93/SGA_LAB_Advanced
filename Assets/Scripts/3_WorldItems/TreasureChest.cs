@@ -11,7 +11,7 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 50;
-    private int currentHealth;
+    [SerializeField] private int currentHealth;
     private bool isOpen = false;
 
     public event Action<int, int> OnHealthChanged;
@@ -71,7 +71,7 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
             // Parse the string back to its original type.
             bool.TryParse(isOpenStr, out isOpen);
         }
-        if (state.TryGetValue("health", out string healthStr))
+        if (state.TryGetValue("currentHealth", out string healthStr))
         {
             // Parse the string back to its original type.
             int.TryParse(healthStr, out currentHealth);

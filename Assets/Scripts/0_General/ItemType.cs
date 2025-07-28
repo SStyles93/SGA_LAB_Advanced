@@ -8,6 +8,6 @@ public enum ItemType
     Ingredient,
     Potion,
     Key,
-    Equipment,
+    Recipe,
     Generic
 }

@@ -22,7 +22,7 @@ public class InventoryUI : MonoBehaviour
 
     // We need a reference to the data source, but only to read from it.
     [Header("Data Source")]
-    [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private PlayerInventoryManager inventoryManager;
 
     // State Management
     public bool isSelectionMode { get; private set; } = false;
@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour
     {
         // 3. Subscribe the RedrawUI method to the event.
         // Now, whenever OnInventoryChanged is invoked, RedrawUI will be called automatically.
-        InventoryManager.OnInventoryChanged += RedrawUI;
+        PlayerInventoryManager.OnInventoryChanged += RedrawUI;
     }
 
     private void OnDisable()
@@ -42,7 +42,7 @@ public class InventoryUI : MonoBehaviour
         // 4. Unsubscribe when the object is disabled or destroyed.
         // This is crucial to prevent memory leaks and errors if the UI object is destroyed
         // before the InventoryManager.
-        InventoryManager.OnInventoryChanged -= RedrawUI;
+        PlayerInventoryManager.OnInventoryChanged -= RedrawUI;
     }
 
     private void Start()

@@ -3,12 +3,12 @@ using UnityEngine;
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private PlayerInteraction playerInteraction;
-    [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private PlayerInventoryManager inventoryManager;
 
     private void Awake()
     {
         playerInteraction = GetComponent<PlayerInteraction>();
-        inventoryManager = GetComponent<InventoryManager>();
+        inventoryManager = GetComponent<PlayerInventoryManager>();
     }
 
     // Update is called once per frame

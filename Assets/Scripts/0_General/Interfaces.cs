@@ -23,7 +23,7 @@ public interface ICollectable
     /// Collects the item and adds it to the specified inventory.
     /// </summary>
     /// <param name="collectorInventory">The InventoryManager of the character who is collecting the item.</param>
-    void Collect(InventoryManager collectorInventory);
+    void Collect(PlayerInventoryManager collectorInventory);
 }
 
 /// <summary>

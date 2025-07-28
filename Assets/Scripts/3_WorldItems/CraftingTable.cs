@@ -9,13 +9,8 @@ public class CraftingTable : MonoBehaviour, IActivatable
     [SerializeField]
     private List<IngredientStation> ingredientStations;
 
-    [Tooltip("A list of all possible recipes this table can use.")]
-    [SerializeField]
-    private List<CraftingRecipe> availableRecipes;
-
     // We need a reference to the player's inventory to give them the crafted item.
-    [SerializeField]
-    private InventoryManager playerInventory;
+    [SerializeField] private PlayerInventoryManager playerInventory;
 
     /// <summary>
     /// This method will be called when the player activated the table
@@ -23,7 +18,7 @@ public class CraftingTable : MonoBehaviour, IActivatable
     public void Activate(GameObject activator)
     {
         Debug.Log($"Table Activated by {activator.name}");
-        playerInventory = activator.GetComponent<InventoryManager>();
+        playerInventory = activator.GetComponent<PlayerInventoryManager>();
         Craft();
     }
 
@@ -78,7 +73,7 @@ public class CraftingTable : MonoBehaviour, IActivatable
     /// <returns>The matching CraftingRecipe, or null if no match is found.</returns>
     private CraftingRecipe FindMatchingRecipe(List<ItemData> ingredients)
     {
-        foreach (var recipe in availableRecipes)
+        foreach (var recipe in playerInventory.GetAvailableRecipes())
         {
             // We check if the recipe can be crafted with the ingredients.
             // We also ensure the number of ingredients matches to prevent crafting with extra items on the table.

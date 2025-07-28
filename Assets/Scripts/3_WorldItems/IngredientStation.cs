@@ -8,7 +8,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
     [Tooltip("Reference to the main Inventory UI panel.")]
     [SerializeField] private InventoryUI inventoryUI;
     [Tooltip("Reference to the player's inventory manager.")]
-    [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private PlayerInventoryManager inventoryManager;
 
     [Header("Data")]
     [Tooltip("The item currently placed on this station.")]
@@ -24,7 +24,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
     public void Activate(GameObject activator)
     {
         InventoryUI playerUI = activator.GetComponentInChildren<InventoryUI>(true);
-        InventoryManager playerInventory = activator.GetComponent<InventoryManager>();
+        PlayerInventoryManager playerInventory = activator.GetComponent<PlayerInventoryManager>();
 
         // Check for dependencies first to avoid errors.
         if (playerUI == null || playerInventory == null)
@@ -49,7 +49,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
     /// <summary>
     /// Places an item on this station.
     /// </summary>
-    public void PlaceItem(ItemData item, InventoryManager placerInventory = null)
+    public void PlaceItem(ItemData item, PlayerInventoryManager placerInventory = null)
     {
         // We should only accept items that are ingredients.
         if (item.itemType == ItemType.Ingredient)
@@ -73,7 +73,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
     /// <summary>
     /// Adds the current item back to the player's inventory and clears the station.
     /// </summary>
-    private void ReturnItemToPlayer(InventoryManager playerInventory)
+    private void ReturnItemToPlayer(PlayerInventoryManager playerInventory)
     {
         if (currentItem == null) return;
 
