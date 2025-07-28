@@ -58,6 +58,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
             Debug.Log($"Placed {item.itemName} on station {gameObject.name}.");
 
             // Update visual model.
+            if(currentWorldItem != null) { Destroy(currentWorldItem); currentWorldItem = null; }
             currentWorldItem = Instantiate(currentItem.prefab, worldItemPosition.transform.position, Quaternion.identity, worldItemPosition.transform);
             currentWorldItem.GetComponent<WorldItem>().enabled = false;
         }
@@ -153,13 +154,14 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
 
             if (foundItem != null)
             {
-                // If we found the matching ItemData asset, place it on the station.
+                // If we found the matching ItemData asset, place it on the station.)
                 PlaceItem(foundItem);
             }
             else
             {
                 Debug.LogWarning($"IngredientStation {gameObject.name} could not find an ItemData asset with saved ID: {savedItemId}. Station will be empty.");
                 currentItem = null; // Ensure station is empty if item not found.
+                if(currentWorldItem != null) Destroy(currentWorldItem);  
             }
         }
         else
@@ -167,6 +169,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
             // If no ID was found in the save data, it means the station was empty.
             // We ensure the currentItem is null.
             currentItem = null;
+            if (currentWorldItem != null) Destroy(currentWorldItem);
         }
     }
 

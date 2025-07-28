@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2435438284779618006}
   - component: {fileID: 3828304170093052533}
   - component: {fileID: 2388133489477867610}
-  - component: {fileID: 6824523595063648589}
   m_Layer: 10
   m_Name: Lemon
   m_TagString: Untagged
@@ -151,16 +150,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 591460a76f9a11e4f9e367ea338bab12, type: 2}
---- !u!114 &6824523595063648589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8421618194728900843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc93ad1902cc454492ee9108418ab89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueId: 76986dc8-944b-48d0-9666-259755a3a9f4

@@ -1,4 +1,3 @@
-// C#
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json; // IMPORTANT: Use Newtonsoft
@@ -7,7 +6,7 @@ public class JsonDataService : IDataService
 {
     public void Save(SceneSaveData data, string fileName)
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        string path = Path.Combine(Application.dataPath, fileName);
         try
         {
             // We don't need custom converters because we are using DTOs.
@@ -22,7 +21,7 @@ public class JsonDataService : IDataService
 
     public SceneSaveData Load(string fileName)
     {
-        string path = Path.Combine(Application.persistentDataPath, fileName);
+        string path = Path.Combine(Application.dataPath, fileName);
         if (!File.Exists(path)) return null;
 
         try

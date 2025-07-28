@@ -10,7 +10,12 @@ public class SceneSaveData
 {
     // A list of all the root-level objects in the scene that are saveable.
     public List<GameObjectSaveData> rootObjects;
-    public SceneSaveData() { rootObjects = new List<GameObjectSaveData>(); }
+    public List<WorldItemSaveData> savedWorldItems;
+    public SceneSaveData() 
+    {
+        rootObjects = new List<GameObjectSaveData>(); 
+        savedWorldItems = new List<WorldItemSaveData>();
+    }
 }
 
 /// <summary>
@@ -42,4 +47,12 @@ public class GameObjectSaveData
         componentSaveData = new Dictionary<string, Dictionary<string, string>>();
         children = new List<GameObjectSaveData>();
     }
+}
+
+[System.Serializable]
+public class WorldItemSaveData
+{
+    public string itemID; // The ID of the ItemData ScriptableObject
+    public Vector3Data position;
+    public QuaternionData rotation;
 }

@@ -11,6 +11,34 @@ public class WorldItem : MonoBehaviour, ICollectable
     [SerializeField]
     private ItemData itemData;
 
+    public ItemData GetItemData() => itemData;
+
+    /// <summary>
+    /// Called when the object becomes enabled and active.
+    /// This is where we register with the manager.
+    /// </summary>
+    private void OnEnable()
+    {
+        // Check if the WorldItemManager instance exists to avoid errors on game quit.
+        if (WorldItemManager.Instance != null)
+        {
+            WorldItemManager.Instance.Register(this);
+        }
+    }
+
+    /// <summary>
+    /// Called when the object becomes disabled or is destroyed.
+    /// This is where we unregister from the manager.
+    /// </summary>
+    private void OnDisable()
+    {
+        // Check if the WorldItemManager instance still exists.
+        // This is important because on game quit, the manager might be destroyed first.
+        if (WorldItemManager.Instance != null)
+        {
+            WorldItemManager.Instance.Unregister(this);
+        }
+    }
 
     public void Collect(InventoryManager collectorInventory)
     {

@@ -350,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 653727158}
   - component: {fileID: 653727157}
+  - component: {fileID: 653727159}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -369,7 +370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebefa098abb5cb42b85c6713bf4361f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SAVE_FILE_NAME: game_save.json
 --- !u!4 &653727158
 Transform:
   m_ObjectHideFlags: 0
@@ -385,6 +385,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &653727159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653727156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c17f5d6dc862d84797609179b3a254d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &896273541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,14 +1193,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 304163591113121753, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
-      propertyPath: uniqueId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1536209916143978832, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
-      propertyPath: uniqueId
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 2821138438683272637, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
       propertyPath: m_Name
       value: CraftingTable
@@ -1232,22 +1236,6 @@ PrefabInstance:
     - target: {fileID: 3348215879420037488, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4482109074274817521, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.308
-      objectReference: {fileID: 0}
-    - target: {fileID: 6455243493855934166, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8947785413239055579, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
-      propertyPath: m_Size.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 9139905950733669716, guid: b092fb719822f604dbae2d3209ea4c13, type: 3}
-      propertyPath: uniqueId
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

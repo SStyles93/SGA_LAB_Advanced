@@ -1,7 +1,9 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEditor.Progress;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,24 +25,40 @@ public class GameManager : MonoBehaviour
     {
         var sceneSaveData = new SceneSaveData();
 
-        // Find all root GameObjects in the current scene.
+        // --- 1. HIERARCHICAL SAVE (for persistent scene objects) ---
         var rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-
-        // Start the recursive capture from the root objects.
         foreach (var go in rootObjects)
         {
-            // We only start capturing from roots that have a SaveableEntity.
-            // The recursive function will handle children that might not have one.
             if (go.GetComponent<SaveableEntity>() != null)
             {
                 sceneSaveData.rootObjects.Add(CaptureStateRecursive(go));
             }
         }
 
+        // --- 2. WORLD ITEM SAVE (for dynamically spawned items) ---
+        // Get all tracked items from the manager.
+        List<WorldItem> itemsToSave = WorldItemManager.Instance.GetAllItems();
+        foreach (WorldItem item in itemsToSave)
+        {
+            // Create a save data entry for each item.
+            var itemSaveData = new WorldItemSaveData
+            {
+                itemID = item.GetItemData().ItemID,
+                position = new Vector3Data(item.transform.position),
+                rotation = new QuaternionData(item.transform.rotation)
+            };
+            sceneSaveData.savedWorldItems.Add(itemSaveData);
+        }
+
+        // --- 3. WRITE TO FILE ---
         dataService.Save(sceneSaveData, SAVE_FILE_NAME);
-        Debug.Log($"Game Saved. Saved {sceneSaveData.rootObjects.Count} root object hierarchies.");
+        Debug.Log($"Game Saved. Saved {sceneSaveData.rootObjects.Count} root hierarchies and {sceneSaveData.savedWorldItems.Count} world items.");
+        AssetDatabase.Refresh();
     }
 
+    /// <summary>
+    /// Cleans WorldItems, Restores the state of Saveable Entities, Instantiates WorldItems at the position they where when saved
+    /// </summary>
     public void LoadGame()
     {
         var sceneSaveData = dataService.Load(SAVE_FILE_NAME);
@@ -50,16 +68,64 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Create a dictionary of all saveable entities for fast lookups.
-        allEntities = FindObjectsByType<SaveableEntity>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).ToDictionary(e => e.UniqueId);
+        // --- 1. CLEANUP: Destroy all currently tracked world items ---
+        // This prevents duplicating items when loading. The manager's list will auto-clear
+        // as each item's OnDisable() is called during destruction.
+        List<WorldItem> existingItems = WorldItemManager.Instance.GetAllItems();
+        foreach (WorldItem item in existingItems)
+        {
+            Destroy(item.gameObject);
+        }
 
-        // Start the recursive restore process.
+        // --- 2. HIERARCHICAL LOAD (for persistent scene objects) ---
+        allEntities = FindObjectsByType<SaveableEntity>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID).ToDictionary(e => e.UniqueId);
         foreach (var rootObjectData in sceneSaveData.rootObjects)
         {
             RestoreStateRecursive(rootObjectData);
         }
 
+        // --- 3. WORLD ITEM LOAD (for dynamically spawned items) ---
+        // This part requires the system to find the prefab in the ItemData.
+
+        var itemDataLookup = Resources.FindObjectsOfTypeAll<ItemData>()
+                                     .ToDictionary(item => item.ItemID);
+
+        foreach (var itemSaveData in sceneSaveData.savedWorldItems)
+        {
+            GameObject itemPrefab = FindItemPrefabByID(itemSaveData.itemID, itemDataLookup);
+            if (itemPrefab != null)
+            {
+                // Instantiate the new item. Its OnEnable() will automatically register it.
+                Instantiate(itemPrefab, itemSaveData.position.ToVector3(), itemSaveData.rotation.ToQuaternion());
+            }
+            else
+            {
+                Debug.LogWarning($"Could not find prefab for item ID: {itemSaveData.itemID}");
+            }
+        }
+
         Debug.Log("Game Loaded.");
+    }
+
+    /// <summary>
+    /// Finds an item's prefab by searching through a provided lookup dictionary of all ItemData assets.
+    /// </summary>
+    /// <param name="itemID">The unique ID of the item to find.</param>
+    /// <param name="itemDataLookup">A pre-built dictionary mapping ItemIDs to ItemData assets.</param>
+    /// <returns>The found GameObject prefab, or null if not found.</returns>
+    private GameObject FindItemPrefabByID(string itemID, Dictionary<string, ItemData> itemDataLookup)
+    {
+        if (string.IsNullOrEmpty(itemID)) return null;
+
+        // Use the fast dictionary lookup.
+        if (itemDataLookup.TryGetValue(itemID, out ItemData itemData))
+        {
+            // Return the prefab reference from the found ItemData.
+            return itemData.prefab;
+        }
+
+        // If the ID wasn't in the dictionary, return null.
+        return null;
     }
 
     /// <summary>
