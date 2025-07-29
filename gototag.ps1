@@ -3,10 +3,10 @@ param (
     [switch]$Clean
 )
 
-# This script is designed to be placed in your Unity project\'s root folder.
+# This script is designed to be placed in your Unity project's root folder.
 # It automates checking out a specific Git tag and launching the corresponding Unity Editor version.
 
-function Show-Usage {
+if (-not $TagName) {
     Write-Host "Usage: gototag <tag-name> [--clean]"
     Write-Host ""
     Write-Host "Arguments:"
@@ -22,10 +22,6 @@ function Show-Usage {
     exit 1
 }
 
-if (-not $TagName) {
-    Show-Usage
-}
-
 Write-Host "`Closing Unity if running..."
 Get-Process Unity -ErrorAction SilentlyContinue | Stop-Process
 
@@ -33,29 +29,23 @@ Start-Sleep -Seconds 2
 
 Write-Host "Cleaning working directory (pre-checkout)..."
 git reset --hard
-
-if ($Clean) {
+if($Clean){
     Write-Host "Performing git clean -xfd..."
     git clean -xfd
-} else {
-    Write-Host "Skipping git clean -xfd. Use --clean to enable."
 }
 
-Write-Host "Checking out tag: $TagName"
-git checkout "tags/$TagName"
+Write-Host "`Checking out tag: $TagName"
+git checkout tags/$TagName
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Failed to checkout tag '$TagName'. Does it exist?"
     exit 1
 }
 
-Write-Host "Final reset and clean after switching..."
+Write-Host "`Final reset and clean after switching..."
 git reset --hard
-
-if ($Clean) {
+if($Clean){
     Write-Host "Performing git clean -xfd..."
     git clean -xfd
-} else {
-    Write-Host "Skipping git clean -xfd. Use --clean to enable."
 }
 
 # Read Unity version from ProjectSettings/ProjectVersion.txt
@@ -73,8 +63,8 @@ if (-not $versionLine) {
     exit 1
 }
 
-$unityVersion = $versionLine -replace 'm_EditorVersion:\s*', ''
-Write-Host "Detected Unity version: $unityVersion"
+$unityVersion = $versionLine -replace 'm_EditorVersion:\s*',''
+Write-Host "`Detected Unity version: $unityVersion"
 
 # Construct Unity Editor path (adjust if your install path differs)
 $unityPath = "C:\Program Files\Unity\Hub\Editor\$unityVersion\Editor\Unity.exe"
@@ -85,8 +75,8 @@ if (-Not (Test-Path $unityPath)) {
     exit 1
 }
 
-Write-Host "Launching Unity Editor..."
-Start-Process -FilePath $unityPath -ArgumentList "-projectPath \"$PWD\""
+Write-Host "`Launching Unity Editor..."
+Start-Process -FilePath $unityPath -ArgumentList "-projectPath `"$PWD`""
 
-Write-Host "Done. Tag '$TagName' is now active.`n"
+Write-Host "`Done. Tag '$TagName' is now active.`n"
 

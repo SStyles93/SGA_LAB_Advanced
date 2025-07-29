@@ -2,7 +2,10 @@
 :: Windows batch wrapper for gototag PowerShell script
 :: This script is designed to be placed in your Unity project's root folder.
 
-:: Pass all arguments to the PowerShell script
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0gototag.ps1" %*
+:: Get the tag name from the first argument
+set TAG=%1
 
+
+:: Call PowerShell script with ExecutionPolicy Bypass
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0gototag.ps1" %TAG%
 
