@@ -13,7 +13,7 @@ function Show-Usage {
     Write-Host "  <tag-name>  The Git tag to checkout (e.g., v1.0, development)"
     Write-Host ""
     Write-Host "Options:"
-    Write-Host "  --clean     Performs a \'git clean -xfd\' before checking out the tag."
+    Write-Host "  --clean     Performs a 'git clean -xfd' before checking out the tag."
     Write-Host "              Use with caution: this will remove untracked files and directories."
     Write-Host ""
     Write-Host "Example:"
@@ -26,7 +26,7 @@ if (-not $TagName) {
     Show-Usage
 }
 
-Write-Host "Closing Unity if running..."
+Write-Host "`Closing Unity if running..."
 Get-Process Unity -ErrorAction SilentlyContinue | Stop-Process
 
 Start-Sleep -Seconds 2
@@ -42,7 +42,7 @@ if ($Clean) {
 }
 
 Write-Host "Checking out tag: $TagName"
-git checkout tags/$TagName
+git checkout "tags/$TagName"
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Failed to checkout tag '$TagName'. Does it exist?"
     exit 1
@@ -73,7 +73,7 @@ if (-not $versionLine) {
     exit 1
 }
 
-$unityVersion = $versionLine -replace 'm_EditorVersion:\s*',''
+$unityVersion = $versionLine -replace 'm_EditorVersion:\s*', ''
 Write-Host "Detected Unity version: $unityVersion"
 
 # Construct Unity Editor path (adjust if your install path differs)
