@@ -42,9 +42,9 @@ if ($Clean) {
 }
 
 Write-Host "Checking out tag: $TagName"
-git checkout "tags/$TagName"
+git checkout tags/$TagName
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to checkout tag \'$TagName\'. Does it exist?"
+    Write-Host "Failed to checkout tag '$TagName'. Does it exist?"
     exit 1
 }
 
@@ -67,13 +67,13 @@ if (-Not (Test-Path $versionFile)) {
 }
 
 $content = Get-Content $versionFile
-$versionLine = $content | Where-Object { $_ -match \'m_EditorVersion:\' }
+$versionLine = $content | Where-Object { $_ -match 'm_EditorVersion:' }
 if (-not $versionLine) {
     Write-Host "Could not find Unity version line in ProjectVersion.txt"
     exit 1
 }
 
-$unityVersion = $versionLine -replace \'m_EditorVersion:\s*\',\'\'
+$unityVersion = $versionLine -replace 'm_EditorVersion:\s*',''
 Write-Host "Detected Unity version: $unityVersion"
 
 # Construct Unity Editor path (adjust if your install path differs)
@@ -86,7 +86,7 @@ if (-Not (Test-Path $unityPath)) {
 }
 
 Write-Host "Launching Unity Editor..."
-Start-Process -FilePath $unityPath -ArgumentList "-projectPath \`"$PWD\`""
+Start-Process -FilePath $unityPath -ArgumentList "-projectPath \"$PWD\""
 
-Write-Host "Done. Tag \'$TagName\' is now active.`n"
+Write-Host "Done. Tag '$TagName' is now active.`n"
 
