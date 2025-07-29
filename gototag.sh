@@ -10,37 +10,84 @@
 
 # --- Script Logic ---
 
-if [ -z "$1" ]; then
-    echo "❌ Error: No tag name provided."
-    echo "Usage: gototag <tag-name>"
+# Function to display usage
+usage() {
+    echo "Usage: gototag <tag-name> [--clean]"
+    echo ""
+    echo "Arguments:"
+    echo "  <tag-name>  The Git tag to checkout (e.g., v1.0, development)"
+    echo ""
+    echo "Options:"
+    echo "  --clean     Performs a 'git clean -xfd' before checking out the tag."
+    echo "              Use with caution: this will remove untracked files and directories."
+    echo ""
+    echo "Example:"
+    echo "  gototag v2.5 --clean"
+    echo "  gototag feature/new-ui"
     exit 1
+}
+
+# Parse arguments
+TAG=""
+CLEAN_FLAG=false
+
+for arg in "$@"; do
+    case $arg in
+        --clean)
+        CLEAN_FLAG=true
+        shift
+        ;;
+        *)
+        if [ -z "$TAG" ]; then
+            TAG=$arg
+        else
+            echo "Error: Too many arguments provided."
+            usage
+        fi
+        shift
+        ;;
+    esac
+done
+
+if [ -z "$TAG" ]; then
+    usage
 fi
 
-TAG=$1
-
-echo "🛑 Closing Unity if running..."
+echo "Closing Unity if running..."
 pkill -x "Unity" 2>/dev/null
 sleep 2
 
-echo "🧹 Cleaning working directory (pre-checkout)..."
+echo "Cleaning working directory (pre-checkout)..."
 git reset --hard
-git clean -xfd
 
-echo "🔁 Checking out tag: $TAG"
+if [ "$CLEAN_FLAG" = true ]; then
+    echo "Performing git clean -xfd..."
+    git clean -xfd
+else
+    echo "Skipping git clean -xfd. Use --clean to enable."
+fi
+
+echo "Checking out tag: $TAG"
 git checkout tags/$TAG
 if [ $? -ne 0 ]; then
-    echo "❌ Failed to checkout tag \'$TAG\'. Does the tag exist?"
+    echo "Failed to checkout tag \'$TAG\'. Does the tag exist?"
     exit 1
 fi
 
-echo "🧼 Final reset and clean after switching..."
+echo "Final reset and clean after switching..."
 git reset --hard
-git clean -xfd
+
+if [ "$CLEAN_FLAG" = true ]; then
+    echo "Performing git clean -xfd..."
+    git clean -xfd
+else
+    echo "Skipping git clean -xfd. Use --clean to enable."
+fi
 
 # Extract Unity version from ProjectSettings
 UNITY_VERSION_FILE="ProjectSettings/ProjectVersion.txt"
 if [ ! -f "$UNITY_VERSION_FILE" ]; then
-    echo "❌ Cannot find $UNITY_VERSION_FILE. Is this a Unity project?"
+    echo "Cannot find $UNITY_VERSION_FILE. Is this a Unity project?"
     exit 1
 fi
 
@@ -54,20 +101,20 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
     # Linux path (common for Unity on Linux, adjust if needed)
     UNITY_PATH="${UNITY_HUB_EDITORS_PATH:-/opt/Unity/Hub/Editor}/$UNITY_VERSION/Editor/Unity"
 else
-    echo "❌ Unsupported operating system for direct Unity launch via this script."
+    echo "Unsupported operating system for direct Unity launch via this script."
     echo "Please use the Windows PowerShell script (gototag.ps1) on Windows."
     exit 1
 fi
 
 if [ ! -f "$UNITY_PATH" ]; then
-    echo "❌ Unity Editor not found at: $UNITY_PATH"
+    echo "Unity Editor not found at: $UNITY_PATH"
     echo "Please make sure that version $UNITY_VERSION is installed via Unity Hub and the path is correct."
     exit 1
 fi
 
-echo "🚀 Launching Unity Editor version $UNITY_VERSION..."
+echo "Launching Unity Editor version $UNITY_VERSION..."
 "$UNITY_PATH" -projectPath "$(pwd)"
 
-echo "✅ Done. Tag \'$TAG\' is now active."
+echo "Done. Tag \'$TAG\' is now active."
 
 
