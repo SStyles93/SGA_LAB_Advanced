@@ -8,7 +8,6 @@ public class InventorySlotUI : MonoBehaviour
 {
     private ItemData item;
     private PlayerInventoryManager inventoryManager;
-    private InventoryUI inventoryUI;
 
     /// <summary>
     /// 
@@ -20,7 +19,6 @@ public class InventorySlotUI : MonoBehaviour
     {
         item = newItem;
         inventoryManager = manager;
-        inventoryUI = ui;
 
         if (transform.TryGetComponent(out Image icon))
         {
