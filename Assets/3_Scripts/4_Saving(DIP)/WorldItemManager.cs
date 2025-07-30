@@ -1,4 +1,3 @@
-// C#
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,20 +9,23 @@ using UnityEngine;
 public class WorldItemManager : MonoBehaviour
 {
     // --- Singleton Pattern Implementation ---
-    public static WorldItemManager Instance { get; private set; }
+    /*IMPLEMENT: Here we want a Singleton pattern*/
+    //TIP: Often the singleton is called "Instance" and has a getter
 
+    //We use the Awake method to be sur it is created on the initialization sequence on Unity
     private void Awake()
     {
         // Standard singleton setup.
         // If an instance already exists and it's not this one, destroy this one.
-        if (Instance != null && Instance != this)
+        /*IMPLEMENT: we want to check if the instance already exists and is not this one*/
         {
-            Destroy(gameObject);
+            /*UNCOMMENT: If it is the case, we want to destroy it (There can be ONLY ONE!)*///Destroy(gameObject);
         }
-        else
+        //else
         {
             // Otherwise, set the instance to this component.
-            Instance = this;
+            /*UNCOMMENT*///Instance = this;
+            
             // Optional: If you want this manager to persist across scene loads.
             // DontDestroyOnLoad(gameObject);
         }

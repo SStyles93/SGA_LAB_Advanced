@@ -22,7 +22,7 @@ public class InventorySlotUI : MonoBehaviour
 
         if (transform.TryGetComponent(out Image icon))
         {
-            icon.sprite = item.icon;
+            //icon.sprite = item.icon;
             icon.enabled = true;
         }
     }

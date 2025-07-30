@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Crafting Recipe", menuName = "Alchemist's Inventory/Crafting Recipe")]
+//[CreateAssetMenu(fileName = "New Crafting Recipe", menuName = "Alchemist's Inventory/Crafting Recipe")]
 public class CraftingRecipe : ItemData
 {
     [Header("Recipe Definition")]

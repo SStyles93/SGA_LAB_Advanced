@@ -15,7 +15,7 @@ public class IngredientStation : MonoBehaviour
     [SerializeField] private ItemData currentItem = null; // Exposed for debugging
 
     [Header("Station Parts")]
-    [SerializeField] private GameObject worldItemPosition = null;
+    //[SerializeField] private GameObject worldItemPosition = null;
     [SerializeField] private GameObject currentWorldItem = null; // Exposed for debugging
 
     public ItemData CurrentItem => currentItem;
@@ -71,7 +71,7 @@ public class IngredientStation : MonoBehaviour
 
             // Update visual model.
             if(currentWorldItem != null) { Destroy(currentWorldItem); currentWorldItem = null; }
-            currentWorldItem = Instantiate(currentItem.prefab, worldItemPosition.transform.position, Quaternion.identity, worldItemPosition.transform);
+            //currentWorldItem = Instantiate(currentItem.prefab, worldItemPosition.transform.position, Quaternion.identity, worldItemPosition.transform);
             currentWorldItem.GetComponent<WorldItem>().enabled = false;
         }
         else

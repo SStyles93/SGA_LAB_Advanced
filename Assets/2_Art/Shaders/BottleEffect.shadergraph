@@ -1548,7 +1548,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Rotation",
     "m_StageCapability": 3,
-    "m_Value": 90.0,
+    "m_Value": 2.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
@@ -2536,8 +2536,8 @@
     "m_ObjectId": "99dfaeb13d444214a1113a4fa5c0b27f",
     "m_Title": "Color",
     "m_Position": {
-        "x": -760.0,
-        "y": -387.99993896484377
+        "x": -760.000244140625,
+        "y": -388.00006103515627
     }
 }
 
@@ -2759,8 +2759,8 @@
     "m_ObjectId": "abe7ea34230049c387d998539944fd99",
     "m_Title": "Level",
     "m_Position": {
-        "x": -1713.9998779296875,
-        "y": 324.0001220703125
+        "x": -1714.0001220703125,
+        "y": 324.0
     }
 }
 
@@ -3137,8 +3137,8 @@
     "m_ObjectId": "c04d01b27cd14ebea0a71bb00045049b",
     "m_Title": "Wobble Effect",
     "m_Position": {
-        "x": -2783.999755859375,
-        "y": -1108.9998779296875
+        "x": -2784.0,
+        "y": -1109.0
     }
 }
 
@@ -3224,7 +3224,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "Rotation",
     "m_StageCapability": 3,
-    "m_Value": 90.0,
+    "m_Value": 2.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
 }
