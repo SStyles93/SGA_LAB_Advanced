@@ -7,16 +7,6 @@ public class ChestAnimator : MonoBehaviour
     //Hashes of the animation parameters
     int isOpenHash = 0;
 
-    private void OnEnable()
-    {
-        TreasureChest.OnChestOpen += OpenChest;
-    }
-
-    private void OnDisable()
-    {
-        TreasureChest.OnChestOpen -= OpenChest;
-    }
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -28,8 +18,15 @@ public class ChestAnimator : MonoBehaviour
         isOpenHash = Animator.StringToHash("isOpen");
     }
 
-    public void OpenChest(bool value)
+    public void Update()
     {
-        animator.SetBool(isOpenHash, value);
+        if (TreasureChest.isOpen)
+        {
+            animator.SetBool(isOpenHash, true);
+        }
+        else
+        {
+            animator.SetBool(isOpenHash, false);
+        }
     }
 }

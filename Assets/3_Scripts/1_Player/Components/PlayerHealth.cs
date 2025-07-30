@@ -4,26 +4,22 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, ISaveable
+public class PlayerHealth : MonoBehaviour /*IMPLEMENT: saveable interface*/
 {
     public float currentHealth = 75;
     public float maxHealth = 100;
 
     private Coroutine healingCoroutine; // A reference to the active healing coroutine
 
-    // Observer pattern
-    public static event Action<float, float> OnHealthChanged;
+    #region /!\ TO IMPLEMENT /!\
+    //// Observer pattern
+    //public static /*IMPLEMENT: We want a delegate here*/
 
-    //// Old version (Delegates)
-    //public delegate void HealthChangedDelegate(int currentHealth, int maxHealth);
-    //Here, the "event" access modifier forces this class to be the only possible Invoker
-    //public static event HealthChangedDelegate HealthChanged;
-    
-
-    private void Start()
-    {
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-    }
+    //private void Start()
+    //{
+    //    /*IMPLEMENT: We invoke the delegate here*/
+    //}
+    #endregion
 
     /// <summary>
     /// This is the new public method that starts the healing process based on potion data.
@@ -58,8 +54,9 @@ public class PlayerHealth : MonoBehaviour, ISaveable
         {
             currentHealth = maxHealth;
         }
-        // Announce the change after healing.
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        // /*IMPLEMENT: Announce the change after healing.*/
+
         Debug.Log($"Player healed {amount}. Health is now {currentHealth}/{maxHealth}");
     }
 
@@ -79,7 +76,7 @@ public class PlayerHealth : MonoBehaviour, ISaveable
 
         currentHealth -= amount;
         if (currentHealth < 0) currentHealth = 0;
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        // /*IMPLEMENT: Announce the change after healing.*/
         Debug.Log($"Player took {amount} damage. Health is now {currentHealth}/{maxHealth}");
     }
 
@@ -104,7 +101,7 @@ public class PlayerHealth : MonoBehaviour, ISaveable
             if (currentHealth > maxHealth) currentHealth = maxHealth;
 
             // Announce the change to update the UI smoothly.
-            OnHealthChanged?.Invoke(currentHealth, maxHealth);
+            /*IMPLEMENT: Announce the change after healing.*/
 
             // Stop healing if health is already full.
             if (currentHealth >= maxHealth)
@@ -128,56 +125,51 @@ public class PlayerHealth : MonoBehaviour, ISaveable
 
     #region ISaveable Implementation
 
-    /// <summary>
-    /// Captures the current state of the player's health to be saved.
-    /// </summary>
-    /// <returns>A dictionary containing the health data.</returns>
-    public Dictionary<string, string> CaptureState()
-    {
-        // Create a dictionary to hold the state.
-        // We use descriptive keys so we know what the data represents.
-        var state = new Dictionary<string, string>
-        {
-            // Convert the float values to strings for serialization.
-            // Using CultureInfo.InvariantCulture ensures that the decimal point is always a '.'
-            // regardless of the player's system language settings (e.g., some regions use a ',').
-            { "currentHealth", currentHealth.ToString(CultureInfo.InvariantCulture) },
-            { "maxHealth", maxHealth.ToString(CultureInfo.InvariantCulture) }
-        };
-        return state;
-    }
+    ///// <summary>
+    ///// Captures the current state of the player's health to be saved.
+    ///// </summary>
+    ///// <returns>A dictionary containing the health data.</returns>
+    //public //A dictionnary of key/value (pair of strings) CaptureState()
+    //{
+    //    // Create a dictionary to hold the state.
+    //    // We use descriptive keys so we know what the data represents.
+    //    var state = /*dictionnary of key/value*/
+    //    {
+    //        // Convert the float values to strings for serialization.
+    //        // Using CultureInfo.InvariantCulture ensures that the decimal point is always a '.'
+    //        // regardless of the player's system language settings (e.g., some regions use a ',').
+    //        { /*name of the value*/, /*the value*/ },
+    //        { /*We also want a maxHealth value*/, /*The max health value*/ }
+    //    };
+    //    return state;
+    //}
 
-    /// <summary>
-    /// Restores the player's health from the loaded save data.
-    /// </summary>
-    /// <param name="state">The dictionary containing the loaded health data.</param>
-    public void RestoreState(Dictionary<string, string> state)
-    {
-        // Try to get the 'currentHealth' value from the dictionary.
-        if (state.TryGetValue("currentHealth", out string savedCurrentHealth))
-        {
-            // If found, parse the string back into a float.
-            // Using CultureInfo.InvariantCulture ensures we can correctly parse a '.' as the decimal point.
-            if (float.TryParse(savedCurrentHealth, NumberStyles.Float, CultureInfo.InvariantCulture, out float value))
-            {
-                currentHealth = value;
-            }
-        }
+    ///// <summary>
+    ///// Restores the player's health from the loaded save data.
+    ///// </summary>
+    ///// <param name="state">The dictionary containing the loaded health data.</param>
+    //public void RestoreState(/*IMPLEMENT The disctionary*/ state)
+    //{
+    //    // Try to get the 'currentHealth' value from the dictionary.
+    //    if (state.TryGetValue(/*IMPLEMENT "the value"*/, out string savedCurrentHealth))
+    //    {
+    //        // If found, parse the string back into a float.
+    //        // Using CultureInfo.InvariantCulture ensures we can correctly parse a '.' as the decimal point.
+    //        if (float.TryParse(savedCurrentHealth, NumberStyles.Float, CultureInfo.InvariantCulture, out float value))
+    //        {
+    //            currentHealth = value;
+    //        }
+    //    }
 
-        // Do the same for 'maxHealth'.
-        if (state.TryGetValue("maxHealth", out string savedMaxHealth))
-        {
-            if (float.TryParse(savedMaxHealth, NumberStyles.Float, CultureInfo.InvariantCulture, out float value))
-            {
-                maxHealth = value;
-            }
-        }
+    //    // Do the same for 'maxHealth'.
+    //    // IMPLEMENT HERE ____________________
 
-        // --- IMPORTANT ---
-        // After restoring the state, we must notify the UI (like the health bar)
-        // to update itself with the newly loaded values.
-        OnHealthChanged?.Invoke(currentHealth, maxHealth);
-    }
+    //    // --- IMPORTANT ---
+    //    // After restoring the state, we must notify the UI (like the health bar)
+    //    // to update itself with the newly loaded values..
+    //    // IMPLEMENT HERE
+    //    // _________________________________
+    //}
 
     #endregion
 }

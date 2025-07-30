@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// Manages the player's inventory. This script demonstrates safe and efficient
 /// coding practices, including dependency management and access modifiers.
 /// </summary>
-public class PlayerInventoryManager : MonoBehaviour, ISaveable
+public class PlayerInventoryManager : MonoBehaviour /*IMPLEMENT: the saveable interface HERE*/
 {
     // --- Good Practice: Cached References & [SerializeField] ---
     // Instead of using Find() or GetComponent() repeatedly in Update(), we assign
@@ -40,6 +40,7 @@ public class PlayerInventoryManager : MonoBehaviour, ISaveable
 
     public static event Action OnInventoryChanged;
 
+    #region PlayerInventoryManager Methods
     /// <summary>
     /// Toggles the visibility of the Inventory
     /// </summary>
@@ -168,77 +169,79 @@ public class PlayerInventoryManager : MonoBehaviour, ISaveable
         }
     }
 
-    #region ISaveable Implementation
+    #endregion
 
-    public Dictionary<string, string> CaptureState()
-    {
-        // Get a list of all the ItemIDs from the current inventory.
-        // The LINQ Select method is a clean, modern way to do this.
-        List<string> itemIDs = inventory.Select(item => item.ItemID).ToList();
-        
-        //We are adding the list of recipes to the items list (since recipes are also items
-        itemIDs.AddRange(availableRecipes.Select(item => item.ItemID).ToList());
+    #region /!\ TO IMPLEMENT /!\ ISaveable Implementation 
 
-        // Join the list of IDs into a single string, separated by commas.
-        // This is a robust way to store a list of strings in our key-value pair system.
-        // Example: "item001,item003,item001,item002"
-        string inventoryStateString = string.Join(",", itemIDs);
+    //public Dictionary<string, string> CaptureState()
+    //{
+    //    // Get a list of all the ItemIDs from the current inventory.
+    //    // Bonus : The LINQ Select method is a clean, modern way to do this.
+    //    /*IMPLEMENT: list of strings*/ itemIDs = /*IMPLEMENT: we want the item.ItemIDs*/
 
-        // Return the state in the required dictionary format.
-        return new Dictionary<string, string>
-        {
-            { "inventory", inventoryStateString }
-        };
-    }
+    //    //We are adding the list of recipes to the items list (since recipes are also items)
+    //    itemIDs.AddRange(/*IMPLEMENT: Again we can use LINQ to get the list of recipes*/);
 
-    /// <summary>
-    /// Restores the inventory's state from the loaded data.
-    /// </summary>
-    /// <param name="state">The dictionary containing the saved inventory string.</param>
-    public void RestoreState(Dictionary<string, string> state)
-    {
-        // Check if the saved data contains an "inventory" key.
-        if (state.TryGetValue("inventory", out string savedInventoryString))
-        {
-            // Clear the current inventory and recipe list before loading the new one.
-            inventory.Clear();
-            availableRecipes.Clear();
+    //    // Join the list of IDs into a single string, separated by commas.
+    //    // This is a robust way to store a list of strings in our key-value pair system.
+    //    // Example: "item001,item003,item001,item002"
+    //    // TIP: Use string.Join();
 
-            // If the saved string is empty, there's nothing to load.
-            if (string.IsNullOrEmpty(savedInventoryString))
-            {
-                OnInventoryChanged?.Invoke(); // Still invoke to update the UI to be empty.
-                return;
-            }
 
-            // Split the single string back into a list of individual IDs.
-            List<string> itemIDs = savedInventoryString.Split(',').ToList();
+    //    string inventoryStateString = /* IMPLEMENT */
 
-            // --- Find all ItemData assets in the project ---
-            // This is the most complex part. We need a way to map an ID back to an asset.
-            // In production we probably would use Unity's Adressables
-            var allItems = Resources.FindObjectsOfTypeAll<ItemData>().ToDictionary(item => item.ItemID);
+    //    // Return the state in the required dictionary format.
+    //    //IMPLEMENT: the return of dictionary
+    //}
 
-            // Re-populate the inventory list using the loaded IDs.
-            foreach (string id in itemIDs)
-            {
-                if (allItems.TryGetValue(id, out ItemData itemAsset))
-                {
-                    if( itemAsset is CraftingRecipe recipe) availableRecipes.Add(recipe);
-                    else inventory.Add(itemAsset);
-                }
-                else
-                {
-                    Debug.LogWarning($"Could not find ItemData asset with ID: {id}");
-                }
-            }
+    ///// <summary>
+    ///// Restores the inventory's state from the loaded data.
+    ///// </summary>
+    ///// <param name="state">The dictionary containing the saved inventory string.</param>
+    //public void RestoreState(Dictionary<string, string> state)
+    //{
+    //    // Check if the saved data contains an "inventory" key.
+    //    if (state.TryGetValue(/*IMEPLEMENT: "nameOfStoredValue*/, out string savedInventoryString))
+    //    {
+    //        // Clear the current inventory and recipe list before loading the new one.
+    //        /*IMPLEMENT: we want to clear inventory and availableRecipes*/
 
-            Debug.Log($"Inventory loaded with {inventory.Count} items and {availableRecipes.Count} available recipes.");
+    //        // If the saved string is empty, there's nothing to load.
+    //        if (string.IsNullOrEmpty(savedInventoryString))
+    //        {
+    //            OnInventoryChanged?.Invoke(); // Still invoke to update the UI to be empty.
+    //            return;
+    //        }
 
-            // After loading the inventory, broadcast the change to update the UI.
-            OnInventoryChanged?.Invoke();
-        }
-    }
+    //        // Split the single string back into a list of individual IDs.
+    //        //TIP: use .Split().ToList()
+    //        /*IMPLEMENT: a List of strings called itemIDs*/
+
+    //        // --- Find all ItemData assets in the project ---
+    //        // This is the most complex part. We need a way to map an ID back to an asset.
+    //        // In production we probably would use Unity's Adressables
+    //        var allItems = Resources.FindObjectsOfTypeAll<ItemData>().ToDictionary(item => item.ItemID);
+
+    //        // Re-populate the inventory list using the loaded IDs.
+    //        foreach (string id in itemIDs)
+    //        {
+    //            if (allItems.TryGetValue(id, out ItemData itemAsset))
+    //            {
+    //                if( itemAsset is CraftingRecipe recipe) availableRecipes.Add(recipe);
+    //                else inventory.Add(itemAsset);
+    //            }
+    //            else
+    //            {
+    //                Debug.LogWarning($"Could not find ItemData asset with ID: {id}");
+    //            }
+    //        }
+
+    //        Debug.Log($"Inventory loaded with {inventory.Count} items and {availableRecipes.Count} available recipes.");
+
+    //        // After loading the inventory, broadcast the change to update the UI.
+    //        /*IMPLEMENT: Invoke the delegate to update UI*/
+    //    }
+    //}
     #endregion
 
 }
