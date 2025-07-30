@@ -8,29 +8,29 @@ public class DamageableEntityUIConnector : MonoBehaviour
     // The color field is no longer needed here, as it's controlled by the gradient
     // on the WorldHealthBar itself.
 
-    //private IDamageable damageable;
+    private IDamageable damageable;
 
     private void Awake()
     {
-      //  damageable = GetComponent<IDamageable>();
+        damageable = GetComponent<IDamageable>();
     }
 
     private void Start()
     {
-        //if (damageable != null && healthBar != null)
-        //{
-        //    damageable.OnHealthChanged += OnEntityHealthChanged;
-        //    // We can optionally call it once at the start to set the initial health.
-        //    // This requires the entity to have its health value ready in Awake/Start.
-        //}
+        if (damageable != null && healthBar != null)
+        {
+            damageable.OnHealthChanged += OnEntityHealthChanged;
+            // We can optionally call it once at the start to set the initial health.
+            // This requires the entity to have its health value ready in Awake/Start.
+        }
     }
 
     private void OnDestroy()
     {
-        //if (damageable != null)
-        //{
-        //    damageable.OnHealthChanged -= OnEntityHealthChanged;
-        //}
+        if (damageable != null)
+        {
+            damageable.OnHealthChanged -= OnEntityHealthChanged;
+        }
     }
 
     /// <summary>

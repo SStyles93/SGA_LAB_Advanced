@@ -51,13 +51,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Fill: 0.509
+    - _Fill: 0.642
     - _QueueControl: 0
     - _QueueOffset: 0
     - _WobbleX: 0
     - _WobbleZ: 0
     m_Colors:
-    - _SideColor: {r: 1, g: 0, b: 0.048927307, a: 1}
-    - _TopColor: {r: 5.6568537, g: 0.10748379, b: 0, a: 1}
+    - _SideColor: {r: 0, g: 3.523293, b: 3.4922745, a: 1}
+    - _TopColor: {r: 0, g: 36.758343, b: 34.97805, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

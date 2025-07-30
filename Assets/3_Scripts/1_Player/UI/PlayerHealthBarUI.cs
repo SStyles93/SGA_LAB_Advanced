@@ -29,26 +29,18 @@ public class PlayerHealthBarUI : MonoBehaviour
         canvasGroup.alpha = 0;
     }
 
-    #region /!\ TO IMPLEMENT /!\
+    // Subscribe to the event when this component is enabled.
+    private void OnEnable()
+    {
+        PlayerHealth.OnHealthChanged += UpdateHealthBar;
+    }
 
-    //// Subscribe to the event when this component is enabled.
-    //private void OnEnable()
-    //{
-    //    /*We want to Implement subscription from the OnHealthChanged delegate*/
-    //    //___________________IMPLEMENT HERE ___________________
-    //}
+    // Unsubscribe when the component is disabled to prevent errors.
+    private void OnDisable()
+    {
+        PlayerHealth.OnHealthChanged -= UpdateHealthBar;
+    }
 
-    //// Unsubscribe when the component is disabled to prevent errors.
-    //private void OnDisable()
-    //{
-    //    /*We want to Implement un-subscription from the OnHealthChanged delegate*/
-    //    //___________________IMPLEMENT HERE ___________________
-    //}
-
-    #endregion
-
-    #region Methods
-    
     /// <summary>
     /// This method is called by the OnHealthChanged event.
     /// It receives the new health values and updates the slider.
@@ -107,6 +99,4 @@ public class PlayerHealthBarUI : MonoBehaviour
         canvasGroup.alpha = 0;
         fadeCoroutine = null; // Clear the coroutine reference.
     }
-    
-    #endregion
 }

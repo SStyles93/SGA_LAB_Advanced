@@ -45,7 +45,7 @@ public class WorldHealthBar : MonoBehaviour
     [SerializeField] private float fillAnimationSpeed = 1.5f;
 
     // --- Private State ---
-    private Camera mainCamera;
+
     private MaterialPropertyBlock propertyBlock;
     private Coroutine displayCoroutine;
     private Coroutine fillCoroutine;
@@ -53,7 +53,6 @@ public class WorldHealthBar : MonoBehaviour
 
     private void Awake()
     {
-        mainCamera = Camera.main;
         propertyBlock = new MaterialPropertyBlock();
         // If the background renderer isn't assigned, try to get it from this component.
         if (healthText == null)
@@ -62,12 +61,6 @@ public class WorldHealthBar : MonoBehaviour
         }
         // Start with the health bar invisible.
         SetAlpha(0);
-    }
-
-    private void LateUpdate()
-    {
-        if (mainCamera == null) return;
-        transform.forward = -mainCamera.transform.forward;
     }
 
     public void OnHealthChanged(float normalizedHealth)
@@ -129,11 +122,11 @@ public class WorldHealthBar : MonoBehaviour
 
         switch (fillAnchor)
         {
-            case FillAnchor.Left:
+            case FillAnchor.Right:
                 positionOffset = shiftAmount;
                 break;
 
-            case FillAnchor.Right:
+            case FillAnchor.Left:
                 positionOffset = -shiftAmount;
                 break;
 
@@ -142,7 +135,7 @@ public class WorldHealthBar : MonoBehaviour
                 break;
         }
 
-        healthFillTransform.localPosition = new Vector3(positionOffset, 0, 0);
+        healthFillTransform.localPosition = new Vector3(positionOffset, 0, 0.01f);
         UpdateColor(healthFillTransform.localScale.x);
     }
 
