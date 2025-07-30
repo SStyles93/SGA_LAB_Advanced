@@ -69,7 +69,7 @@ public class WorldItem : MonoBehaviour /*IMPLEMENT: Collectible interface*/
             /*IMPLEMENT: Add the item to the player's inventory*/
 
             // The item has been collected, so we destroy the world object.
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
