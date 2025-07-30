@@ -1,11 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Manages the player's inventory. This script demonstrates safe and efficient
@@ -38,9 +33,9 @@ public class PlayerInventoryManager : MonoBehaviour /*IMPLEMENT: the saveable in
     public List<ItemData> GetInventory() => inventory;
     public List<CraftingRecipe> GetAvailableRecipes() => availableRecipes;
 
-    public static event Action OnInventoryChanged;
+    /*IMPLEMENT: We want a delegate(Action) to notify the change in inventory*/
+    //TIP: Use static and event. It will be called "OnInventoryChanged"
 
-    #region PlayerInventoryManager Methods
     /// <summary>
     /// Toggles the visibility of the Inventory
     /// </summary>
@@ -50,54 +45,60 @@ public class PlayerInventoryManager : MonoBehaviour /*IMPLEMENT: the saveable in
         visibleState = !visibleState;
         inventoryPannel.SetActive(visibleState);
         savePannel.SetActive(visibleState);
-        OnInventoryChanged?.Invoke();
+        /*IMPLEMENT: We want to call it when we open the inventory to be sure we are up to date when it shows*/
     }
 
-    /// <summary>
-    /// Adds an item to the inventory and updates the UI.
-    /// </summary>
-    /// <param name="itemToAdd">The ScriptableObject data of the item to add.</param>
-    public void AddItem(ItemData itemToAdd)
-    {
-        if (itemToAdd == null) return;
+    #region /!\ IMPLEMENT /!\ Add/Remove Item
+    ///// <summary>
+    ///// Adds an item to the inventory and updates the UI.
+    ///// </summary>
+    ///// <param name="itemToAdd">The ScriptableObject data of the item to add.</param>
+    ///*IMPLEMENT: A method to add the item to the inventory or availableRecipes lists*/
+    ////TIP: the method will have to be PUBLIC has NO return type and takes and ItemData as PARAMETER
+    //{
+    //    /*IMPLEMENT: Check for null*/
 
-        if (itemToAdd is CraftingRecipe recipe)
-        {
-            if (!availableRecipes.Contains(recipe))
-                availableRecipes.Add(recipe);
-        }
-        else
-        {
-            if (inventory.Count > 10)
-            {
-                Debug.Log("Inventory is full");
-                return;
-            }
+    //    /*IMPLEMENT a Declaration pattern*/
+    //    //TIP: Use if() and the declaration pattern with the CraftingRecipe type
+    //    {
+    //        if (!availableRecipes.Contains(recipe))
+    //            availableRecipes.Add(recipe);
+    //    }
+    //    /*Otherwise it is an "standard item*/
+    //    {
+    //        if (inventory.Count > 10)
+    //        {
+    //            Debug.Log("Inventory is full");
+    //            return;
+    //        }
 
-            inventory.Add(itemToAdd);
-            Debug.Log($"Added {itemToAdd.itemName} to inventory.");
+    //        /*IMPLEMENT: the addition of item to the inventory list*/
+    //        Debug.Log($"Added {/*IMPLEMENT: it's name*/} to inventory.");
 
-            OnInventoryChanged?.Invoke();
+    //        /*IMPLEMENT: Call the delegate*/
 
-            // Update the status text to show what was added.
-        }
-        UpdateStatus(itemToAdd);
-    }
+    //    }
+    //    // Update the status text to show what was added.
+    //    UpdateStatus(itemToAdd);
+    //}
 
-    /// <summary>
-    /// Removes an item from the inventory.
-    /// </summary>
-    public void RemoveItem(ItemData itemToRemove)
-    {
-        if (itemToRemove == null) return;
 
-        if (inventory.Remove(itemToRemove))
-        {
-            Debug.Log($"Removed {itemToRemove.itemName} from inventory.");
-            // Also broadcast the event on removal.
-            OnInventoryChanged?.Invoke();
-        }
-    }
+    ///// <summary>
+    ///// Removes an item from the inventory.
+    ///// </summary>
+    ///*IMPLEMENT: We want to be able to remove the items too*/
+    //{
+    //    /*IMPLEMENT: Check for null*/
+
+    //    /*IMPLEMENT: Remove the item from the list*/
+    //    //TIP: you can use the "listName".Remove() in an if() to check if removal was done or not :)
+    //    {
+    //        Debug.Log($"Removed {itemToRemove.itemName} from inventory.");
+
+    //        /*IMPLEMENT: We have to notify the removal of the object now*/
+    //    }
+    //}
+    #endregion
 
     /// <summary>
     /// Uses an item from the inventory, triggering its effect and removing it.
@@ -113,7 +114,8 @@ public class PlayerInventoryManager : MonoBehaviour /*IMPLEMENT: the saveable in
             usableItem.Use(this.gameObject);
 
             // After using the item, remove it from the inventory.
-            RemoveItem(itemToUse);
+            ///*UNCOMMENT when previous steps are done*/
+            //RemoveItem(itemToUse);
         }
         else
         {
@@ -168,8 +170,6 @@ public class PlayerInventoryManager : MonoBehaviour /*IMPLEMENT: the saveable in
                 break;
         }
     }
-
-    #endregion
 
     #region /!\ TO IMPLEMENT /!\ ISaveable Implementation 
 

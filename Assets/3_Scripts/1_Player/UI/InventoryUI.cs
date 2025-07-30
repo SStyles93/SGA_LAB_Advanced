@@ -28,22 +28,29 @@ public class InventoryUI : MonoBehaviour
     public bool isSelectionMode { get; private set; } = false;
     private IngredientStation requestingStation;
 
-    // --- Subscribing and Unsubscribing to the Event ---
 
-    private void OnEnable()
-    {
-        // 3. Subscribe the RedrawUI method to the event.
-        // Now, whenever OnInventoryChanged is invoked, RedrawUI will be called automatically.
-        PlayerInventoryManager.OnInventoryChanged += RedrawUI;
-    }
+    #region /!\IMPLEMENT/!\ (Un)Subscribe
 
-    private void OnDisable()
-    {
-        // 4. Unsubscribe when the object is disabled or destroyed.
-        // This is crucial to prevent memory leaks and errors if the UI object is destroyed
-        // before the InventoryManager.
-        PlayerInventoryManager.OnInventoryChanged -= RedrawUI;
-    }
+    //// --- Subscribing and Unsubscribing to the Event ---
+
+    //private void OnEnable()
+    //{
+    //    /*IMPLEMENT: We want to subscribe to the delegate we created*/
+    //    //PlayerInventoryManager
+    //}
+
+    //private void OnDisable()
+    //{
+    //    /*IMPLEMENT: We want to UNsubscribe to the delegate*/
+    //    //PlayerInventoryManager
+
+    //    // Unsubscribe when the object is disabled or destroyed.
+    //    // This is crucial to prevent memory leaks and errors if the UI object is destroyed
+    //    // before the InventoryManager.
+    //}
+
+    #endregion
+
 
     private void Start()
     {
@@ -92,7 +99,6 @@ public class InventoryUI : MonoBehaviour
         isSelectionMode = true;
         requestingStation = station;
         inventoryManager.ToggleInventoryVisibility();
-        //inventoryPanel.SetActive(true);
         if (titleText != null) titleText.text = "Select an Ingredient";
     }
 
@@ -110,7 +116,6 @@ public class InventoryUI : MonoBehaviour
         isSelectionMode = false;
         requestingStation = null;
         inventoryManager.ToggleInventoryVisibility();
-        //inventoryPanel.SetActive(false);
     }
 
 }

@@ -68,7 +68,7 @@ public class CraftingTable : MonoBehaviour /*IMPLEMENT the Activatable inferface
             }
 
             // Add the crafted item to the player's inventory.
-            playerInventory.AddItem(matchedRecipe.outputItem);
+            /*IMPLEMENT: We want to add the Item (matchedRecipe) to the player's inventory*/
         }
         else
         {

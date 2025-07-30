@@ -78,7 +78,7 @@ public class IngredientStation : MonoBehaviour
         {
             Debug.LogWarning($"{item.name} is not an ingredient and cannot be placed here.");
             // If a non-ingredient was somehow selected, give it back to the player.
-            placerInventory.AddItem(item);
+            //placerInventory.AddItem(item);
         }
     }
 
@@ -89,7 +89,7 @@ public class IngredientStation : MonoBehaviour
     {
         if (currentItem == null) return;
 
-        playerInventory.AddItem(currentItem);
+        //playerInventory.AddItem(currentItem);
         Debug.Log($"Returned {currentItem.itemName} to {playerInventory.gameObject.name}.");
         currentItem = null;
         Destroy(currentWorldItem);

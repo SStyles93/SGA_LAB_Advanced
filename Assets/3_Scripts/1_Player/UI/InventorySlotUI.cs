@@ -34,30 +34,13 @@ public class InventorySlotUI : MonoBehaviour
     /// </summary>
     public void OnSlotClicked()
     {
-        if (item == null || inventoryManager == null || inventoryUI == null) return;
+        if (item == null || inventoryManager == null) return;
 
-        // Check if we are in selection mode
-        if (inventoryUI.isSelectionMode)
+        // Check if the item is a UsableItemData (like a potion).
+        if (item is UsableItemData)
         {
-            // Check if Item is an Ingredient
-            if (item.itemType == ItemType.Ingredient)
-            {
-                inventoryManager.RemoveItem(item);
-                inventoryUI.OnItemSelected(item);
-            }
-            else
-            {
-                Debug.Log($"{item.name} is not an ingredient.");
-            }
-        }
-        else
-        {
-            // Check if the item is a UsableItemData (like a potion).
-            if (item is UsableItemData)
-            {
-                // If it's usable, call the UseItem method.
-                inventoryManager.UseItem(item);
-            }
+            // If it's usable, call the UseItem method.
+            inventoryManager.UseItem(item);
         }
     }
 }

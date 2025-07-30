@@ -63,26 +63,13 @@ public class WorldItem : MonoBehaviour /*IMPLEMENT: Collectible interface*/
         // and assigns the component to the 'out' variable if it's found.
         // If not found, it returns false and does nothing. This prevents
         // "NullReferenceException" errors if the colliding object isn't the player.
-        if (other.TryGetComponent<PlayerInventoryManager>(out var inventoryManager))
+        /*IMPLEMENT: we want to add the item to the PlayerInventoryManager*/
         {
             // If the component was found, we can safely use it.
-            inventoryManager.AddItem(itemData);
+            /*IMPLEMENT: Add the item to the player's inventory*/
 
             // The item has been collected, so we destroy the world object.
             Destroy(gameObject);
         }
-    }
-
-
-    public void Collect(PlayerInventoryManager collectorInventory)
-    {
-        /*IMPLEMENT: 1. Check if the dependencies are valid.*/
-        //   Debug.LogError($"WorldItem on {gameObject.name} is missing its ItemData!");
-        //   Debug.LogError($"Collect method was called with a null collectorInventory on {gameObject.name}!");
-
-        /*IMPLEMENT 2. Add the item to the player's inventory.*/
-
-        // 3. Destroy the GameObject from the world.
-        Destroy(gameObject);
     }
 }
