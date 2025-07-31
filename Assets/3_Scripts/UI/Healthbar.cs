@@ -148,7 +148,7 @@ public class WorldHealthBar : MonoBehaviour
         if (healthFillRenderer != null)
         {
             healthFillRenderer.GetPropertyBlock(propertyBlock);
-            propertyBlock.SetColor("_Color", healthGradient.Evaluate(normalizedValue));
+            propertyBlock.SetColor("_BaseColor", healthGradient.Evaluate(normalizedValue));
             healthFillRenderer.SetPropertyBlock(propertyBlock);
         }
     }

@@ -14,7 +14,7 @@ public class WorldItem : MonoBehaviour, ICollectable
 
     public ItemData GetItemData() => itemData;
 
-    public static event Action<string,bool> OnMouseOverObject;
+    public event Action<string,bool> OnMouseOverObject;
 
     /// <summary>
     /// Called when the object becomes enabled and active.
