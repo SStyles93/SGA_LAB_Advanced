@@ -1,7 +1,7 @@
 {
   "rootObjects": [
     {
-      "uniqueID": "47e8de83-24b6-4813-bbbb-bc06d8fdf454",
+      "uniqueID": "d7c75bf1-eebf-476f-945c-3beff18ffe70",
       "name": "CraftingTable",
       "isActive": true,
       "position": {
@@ -104,15 +104,15 @@
       "name": "Player",
       "isActive": true,
       "position": {
-        "x": 1.07773113,
+        "x": 0.0502896868,
         "y": 1.04033339,
-        "z": -0.7181346
+        "z": -1.07775915
       },
       "rotation": {
         "x": 0.0,
-        "y": 0.8813053,
+        "y": 0.9999747,
         "z": 0.0,
-        "w": 0.4725474
+        "w": 0.00711923325
       },
       "scale": {
         "x": 1.0,
@@ -121,14 +121,7 @@
       },
       "componentSaveData": {
         "PlayerInteraction": {
-          "playerPosition": "1.077731,1.040333,-0.7181346"
-        },
-        "PlayerHealth": {
-          "currentHealth": "50",
-          "maxHealth": "100"
-        },
-        "PlayerInventoryManager": {
-          "inventory": "_67b0d69e-0e75-4710-840e-4f7ffd8c329c"
+          "playerPosition": "0.05028969,1.040333,-1.077759"
         }
       },
       "children": []
@@ -161,34 +154,5 @@
       "children": []
     }
   ],
-  "savedWorldItems": [
-    {
-      "itemID": "Recipe_RED_Potion_cd446750-5c45-4946-9ec7-e6c5fe69b9ee",
-      "position": {
-        "x": 1.70000064,
-        "y": 0.08265585,
-        "z": -3.664661
-      },
-      "rotation": {
-        "x": -2.43646514E-06,
-        "y": 0.499999434,
-        "z": -2.3719017E-06,
-        "w": 0.8660258
-      }
-    },
-    {
-      "itemID": "_91655866-a8a4-4a73-99e1-7e6d98cd36e3",
-      "position": {
-        "x": 3.25,
-        "y": 0.208319977,
-        "z": -2.374
-      },
-      "rotation": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 1.0
-      }
-    }
-  ]
+  "savedWorldItems": []
 }
