@@ -70,9 +70,9 @@ Material:
     - _Side_Emissive: 1
     - _Side_Strength: 2.68
     - _Top_Emissive: 1
-    - _Top_Strength: 8
-    - _WobbleX: 2.0770152e-14
-    - _WobbleZ: -2.0770152e-14
+    - _Top_Strength: 18.67
+    - _WobbleX: 2.7259568e-24
+    - _WobbleZ: -2.7259568e-24
     m_Colors:
     - _Offset_Speed: {r: 0.01, g: 0, b: 0, a: 0}
     - _SideColor: {r: 0, g: 0.4730532, b: 0.5, a: 1}

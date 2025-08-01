@@ -1,11 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerCamera : MonoBehaviour
 {
 
     [SerializeField] private Vector3 cameraOffset = Vector3.zero;
-
+    
     private Camera m_camera;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
