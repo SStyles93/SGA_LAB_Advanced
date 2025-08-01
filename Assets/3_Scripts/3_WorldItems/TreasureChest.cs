@@ -12,7 +12,10 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
     [Header("Health")]
     [SerializeField] private int maxHealth = 50;
     [SerializeField] private int currentHealth;
+    [SerializeField] private List<ItemData> items = new List<ItemData>();
+
     private bool isOpen = false;
+    private ItemSpawner itemSpawner = null;
 
     public event Action<int, int> OnHealthChanged;
 
@@ -28,6 +31,12 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
         OnChestOpen -= OpenChest;
     }
 
+    private void Awake()
+    {
+        if(itemSpawner == null && TryGetComponent<ItemSpawner>(out ItemSpawner spawner))
+        itemSpawner = spawner;
+    }
+
     private void Start()
     {
         currentHealth = maxHealth;
@@ -37,6 +46,12 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
     {
         if (currentHealth > 0) return;
         OnChestOpen?.Invoke(isOpen = !isOpen);
+        
+        if(items.Count > 0)
+        foreach (ItemData item in items)
+        {
+                itemSpawner.SpawnItem(item);
+        }
     }
 
     private void OpenChest(bool value)

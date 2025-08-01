@@ -293,6 +293,37 @@ Transform:
   - {fileID: 8641953419020903995}
   m_Father: {fileID: 3041189277434487612}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4569924520256354295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3631579720992850326}
+  m_Layer: 10
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3631579720992850326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4569924520256354295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.174, z: 2.017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3041189277434487612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4749459309113625224
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +374,7 @@ GameObject:
   - component: {fileID: 7321964729059464738}
   - component: {fileID: 956268975467146663}
   - component: {fileID: 1298433165158902127}
-  - component: {fileID: 3860911625620049257}
+  - component: {fileID: 5246487199591462878}
   m_Layer: 10
   m_Name: TreasureChest
   m_TagString: Untagged
@@ -366,6 +397,7 @@ Transform:
   m_Children:
   - {fileID: 1396737819708803872}
   - {fileID: 1357452171859369647}
+  - {fileID: 3631579720992850326}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &6996363220640090069
@@ -491,7 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueId: b46c32c9-98f6-49cb-90f0-8941305eb65b
---- !u!114 &3860911625620049257
+--- !u!114 &5246487199591462878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -500,10 +532,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7101071412798818136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f720dac80bc3d4e97e7ab84b6c25e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 57d9c533f6f0e4640b5b32a48fd7ed0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 2492186097002373263}
+  itemToSpawn: {fileID: 0}
+  spawnPoint: {fileID: 3631579720992850326}
+  arcHeight: 1.62
+  travelDuration: 1.25
+  landingRadius: 0.58
+  gizmoPathResolution: 20
 --- !u!1 &7470912221143191443
 GameObject:
   m_ObjectHideFlags: 0

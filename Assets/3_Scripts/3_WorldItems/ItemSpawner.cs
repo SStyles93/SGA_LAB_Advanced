@@ -1,91 +1,131 @@
 // C#
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 /// <summary>
-/// A singleton manager that can spawn items and move them along a parabolic arc
-/// from a starting point to a destination.
+/// A component that can be attached to any GameObject to give it the ability
+/// to spawn items along a customizable parabolic arc. Includes editor Gizmos
+/// for easy setup and visualization.
 /// </summary>
 public class ItemSpawner : MonoBehaviour
 {
-    public static ItemSpawner Instance { get; private set; }
+    [Header("Spawning Configuration")]
+    [Tooltip("The data of the item to spawn. Must contain a prefab.")]
+    [SerializeField] private ItemData itemToSpawn;
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+    [Tooltip("The transform where the item should be spawned and the arc should begin.")]
+    [SerializeField] private Transform spawnPoint;
+    [Tooltip("The transform where the item should be landing and the arc should end.")]
+    [SerializeField] private Transform landingPoint;
+
+    [Header("Arc Trajectory")]
+    [Tooltip("The height of the arc at its peak, relative to the midpoint between start and end.")]
+    [SerializeField] private float arcHeight = 2.0f;
+
+    [Tooltip("The time in seconds the item should take to travel the arc.")]
+    [SerializeField] private float travelDuration = 0.7f;
+
+    [Tooltip("The radius around the target position where the item can land.")]
+    [SerializeField] private float landingRadius = 1.0f;
+
+    [Header("Gizmo Settings")]
+    [Tooltip("The number of points to use for drawing the trajectory Gizmo.")]
+    [SerializeField] private int gizmoPathResolution = 20;
+
 
     /// <summary>
-    /// Spawns an item and moves it along a curved path.
+    /// Spawns the configured item and launches it towards a target position.
     /// </summary>
-    /// <param name="itemData">The data of the item to spawn, containing the prefab.</param>
-    /// <param name="startPoint">The world position where the arc should begin.</param>
-    /// <param name="endPoint">The world position where the arc should end.</pawn>
-    /// <param name="arcHeight">The height of the arc at its peak, relative to the midpoint.</param>
-    /// <param name="duration">The time in seconds the item should take to travel the arc.</param>
-    public void SpawnItemWithArc(ItemData itemData, Vector3 startPoint, Vector3 endPoint, float arcHeight = 2.0f, float duration = 0.5f)
+    /// <param name="itemToSpawn">The item to spawn.</param>
+    /// <param name="targetPosition">The central world position where the item should land.</param>
+    public void SpawnItem(ItemData itemToSpawn, Vector3 targetPosition = default)
     {
-        if (itemData == null || itemData.prefab == null)
+        if (itemToSpawn == null || itemToSpawn.prefab == null)
         {
-            Debug.LogError("Cannot spawn item: ItemData or its prefab is null.");
+            Debug.LogError("Cannot spawn item: ItemData or its prefab is not set.", this);
             return;
         }
 
+        if (spawnPoint == null)
+        {
+            Debug.LogError("Cannot spawn item: Spawn Point transform is not set.", this);
+            return;
+        }
+
+        if(targetPosition == default)
+            targetPosition = landingPoint.position;
+
+        // Calculate a random landing spot within the specified radius.
+        Vector2 randomOffset = Random.insideUnitCircle * landingRadius;
+        Vector3 finalLandingPosition = targetPosition + new Vector3(randomOffset.x, 0, randomOffset.y);
+
         // Instantiate the item prefab at the starting point.
-        GameObject itemObject = Instantiate(itemData.prefab, startPoint, Quaternion.identity);
+        GameObject itemObject = Instantiate(itemToSpawn.prefab, spawnPoint.position, Quaternion.identity);
 
         // Start the coroutine that will move the object along the calculated path.
-        StartCoroutine(MoveAlongArcRoutine(itemObject.transform, startPoint, endPoint, arcHeight, duration));
+        StartCoroutine(MoveAlongArcRoutine(itemObject.transform, spawnPoint.position, finalLandingPosition));
     }
 
     /// <summary>
     /// A coroutine that animates a Transform along a parabolic arc.
     /// </summary>
-    private IEnumerator MoveAlongArcRoutine(Transform objectToMove, Vector3 start, Vector3 end, float height, float duration)
+    private IEnumerator MoveAlongArcRoutine(Transform objectToMove, Vector3 start, Vector3 end)
     {
         float elapsedTime = 0f;
 
-        while (elapsedTime < duration)
+        while (elapsedTime < travelDuration)
         {
-            // If the object was destroyed mid-flight (e.g., by another system), stop the coroutine.
-            if (objectToMove == null)
-            {
-                yield break;
-            }
+            if (objectToMove == null) yield break;
 
-            // --- Calculate the position in the arc ---
-
-            // 1. Calculate the linear position (a straight line from start to end).
-            // The 't' value is the normalized progress (0 to 1) of the animation.
-            float t = elapsedTime / duration;
+            float t = elapsedTime / travelDuration;
             Vector3 linearPosition = Vector3.Lerp(start, end, t);
-
-            // 2. Calculate the arc height adjustment.
-            // This uses a parabolic equation: 4 * h * (t - t^2)
-            // This formula gives 0 at t=0 and t=1, and gives 'h' at t=0.5.
-            float arc = 4 * height * (t - (t * t));
+            float arc = 4 * arcHeight * (t - (t * t));
             Vector3 arcPosition = linearPosition + new Vector3(0, arc, 0);
 
-            // 3. Apply the final position.
             objectToMove.position = arcPosition;
 
-            // --- Update time and wait for the next frame ---
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // --- Finalize ---
-        // Ensure the object ends up at the exact end position.
         if (objectToMove != null)
         {
             objectToMove.position = end;
+        }
+    }
+
+    /// <summary>
+    /// Draws Gizmos in the editor when the object is selected to visualize the spawn trajectory.
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        // Ensure we have a spawn point to draw from.
+        if (spawnPoint == null) return;
+
+        // --- Draw the Landing Zone ---
+        Handles.color = Color.green;
+        // The third parameter is the "normal" or the direction the circle should face. Vector3.up makes it flat on the XZ plane.
+        Handles.DrawWireDisc(landingPoint.position, Vector3.up, landingRadius);
+
+        // --- Draw the Arc Path ---
+        Gizmos.color = Color.cyan;
+        Vector3 previousPoint = spawnPoint.position;
+
+        // Loop through a number of steps to draw the arc.
+        for (int i = 1; i <= gizmoPathResolution; i++)
+        {
+            // Calculate the 't' value (normalized progress) for this step.
+            float t = (float)i / gizmoPathResolution;
+
+            // Use the same math as the coroutine to calculate the point on the arc.
+            Vector3 linearPosition = Vector3.Lerp(spawnPoint.position, landingPoint.position, t);
+            float arc = 4 * arcHeight * (t - (t * t));
+            Vector3 currentPoint = linearPosition + new Vector3(0, arc, 0);
+
+            // Draw a line from the previous point to the current one.
+            Gizmos.DrawLine(previousPoint, currentPoint);
+            previousPoint = currentPoint;
         }
     }
 }
