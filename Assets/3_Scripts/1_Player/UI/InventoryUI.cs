@@ -91,8 +91,7 @@ public class InventoryUI : MonoBehaviour
     {
         isSelectionMode = true;
         requestingStation = station;
-        inventoryManager.ToggleInventoryVisibility();
-        //inventoryPanel.SetActive(true);
+        inventoryPanel.SetActive(true);
         if (titleText != null) titleText.text = "Select an Ingredient";
     }
 
@@ -109,8 +108,7 @@ public class InventoryUI : MonoBehaviour
     {
         isSelectionMode = false;
         requestingStation = null;
-        inventoryManager.ToggleInventoryVisibility();
-        //inventoryPanel.SetActive(false);
+        inventoryPanel.SetActive(false);
     }
 
 }

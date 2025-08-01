@@ -11,6 +11,17 @@ public class CraftingTable : MonoBehaviour, IActivatable
 
     // We need a reference to the player's inventory to give them the crafted item.
     [SerializeField] private PlayerInventoryManager playerInventory;
+    
+    //Item spawner used to spawn WorldItems
+    private ItemSpawner itemSpawner;
+
+    private void Awake()
+    {
+        if (itemSpawner == null && TryGetComponent<ItemSpawner>(out var spawner))
+        {
+            itemSpawner = spawner;
+        }
+    }
 
     /// <summary>
     /// This method will be called when the player activated the table
@@ -59,8 +70,9 @@ public class CraftingTable : MonoBehaviour, IActivatable
             }
 
             // Add the crafted item to the player's inventory.
-            //playerInventory.AddItem(matchedRecipe.outputItem);
-            //Spawn the Object
+            if(itemSpawner == null) playerInventory.AddItem(matchedRecipe.outputItem);
+            else
+                itemSpawner.SpawnItem(matchedRecipe.outputItem);
         }
         else
         {

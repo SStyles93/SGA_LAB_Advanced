@@ -10,13 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 265047ead1d948642829bc3e13ab37ca, type: 3}
-  m_Name: Lemon
+  m_Name: Water
   m_EditorClassIdentifier: 
-  itemName: Lemon
+  itemName: Water
+  description: Clear blue water...maybe too clear...
+  value: 1
   icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   prefab: {fileID: 8421618194728900843, guid: 3b2f152ae5e671243b62b1a496c107f2, type: 3}
-  description: A Lemon
+  trailColors:
+  - {r: 0, g: 2.6362648, b: 16, a: 1}
+  - {r: 0, g: 15.860529, b: 15.999998, a: 1}
   itemType: 0
   isStackable: 1
-  value: 0
   itemID: _67b0d69e-0e75-4710-840e-4f7ffd8c329c

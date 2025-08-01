@@ -43,6 +43,25 @@ public class WorldItem : MonoBehaviour, ICollectable
         }
     }
 
+    private void Awake()
+    {
+        TrailRenderer trailRender = GetComponentInChildren<TrailRenderer>();
+
+        if (trailRender != null)
+        {
+            Material materialInstance = trailRender.material;
+            if (itemData.trailColors.Length >= 2)
+            {
+                materialInstance.SetColor("_Color00", itemData.trailColors[0]); // Start Color
+                materialInstance.SetColor("_Color01", itemData.trailColors[1]); // End Color
+            }
+            else
+            {
+                Debug.LogWarning($"ItemData: \"{itemData.name}\" does not contain enough trail colors.");
+            }
+        }
+    }
+
     private void Start()
     {
         //Ensure registering of Item
@@ -76,11 +95,13 @@ public class WorldItem : MonoBehaviour, ICollectable
 
     private void OnMouseEnter()
     {
+        if (gameObject.layer != 10) return;
         OnMouseOverObject?.Invoke(itemData.itemName, true);
     }
 
     private void OnMouseExit()
     {
+        if (gameObject.layer != 10) return;
         OnMouseOverObject?.Invoke(itemData.itemName, false);
     }
 }

@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Trail_Bright
+  m_Name: Red_Trail_Bright
   m_Shader: {fileID: -6465566751694194690, guid: e4896889829fc124b9c5f7d5a06ed868, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,9 +61,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color01: {r: 22.627417, g: 0, b: 9.967102, a: 1}
-    - _Color02: {r: 1, g: 0.22459593, b: 0, a: 1}
-    - _DissolveSpeed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _Color01: {r: 12.180706, g: 0, b: 3.5404022, a: 1}
+    - _Color02: {r: 25.571537, g: 0, b: 8.6127405, a: 1}
+    - _DissolveSpeed: {r: -1, g: 0, b: 0, a: 0}
     - _MainTexSpeed: {r: -0.1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

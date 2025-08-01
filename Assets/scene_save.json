@@ -1,0 +1,184 @@
+{
+  "rootObjects": [
+    {
+      "uniqueID": "5cee38ad-aa21-48d1-9a1d-719242a4342f",
+      "name": "CraftingTable",
+      "isActive": true,
+      "position": {
+        "x": 0.0,
+        "y": 1.016,
+        "z": 3.03
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "componentSaveData": {},
+      "children": [
+        {
+          "uniqueID": "9e15b27e-47b7-4440-8e87-895acdb28ca5",
+          "name": "Ingredient_Station",
+          "isActive": true,
+          "position": {
+            "x": -0.691,
+            "y": 2.558,
+            "z": 2.73
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentSaveData": {
+            "IngredientStation": {
+              "currentItemId": "_67b0d69e-0e75-4710-840e-4f7ffd8c329c"
+            }
+          },
+          "children": []
+        },
+        {
+          "uniqueID": "47d71da8-6d75-41ab-a3de-0367babe1bdd",
+          "name": "Ingredient_Station (1)",
+          "isActive": true,
+          "position": {
+            "x": 0.0,
+            "y": 2.558,
+            "z": 2.73
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentSaveData": {
+            "IngredientStation": {
+              "currentItemId": "_91655866-a8a4-4a73-99e1-7e6d98cd36e3"
+            }
+          },
+          "children": []
+        },
+        {
+          "uniqueID": "6f41790e-0c51-49ba-9daa-5b58f53e8cb8",
+          "name": "Ingredient_Station (2)",
+          "isActive": true,
+          "position": {
+            "x": 0.687,
+            "y": 2.558,
+            "z": 2.73
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "componentSaveData": {
+            "IngredientStation": {}
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "uniqueID": "f88fcb5d-f591-45f2-8acc-dc8c10e3a658",
+      "name": "Player",
+      "isActive": true,
+      "position": {
+        "x": -1.34152246,
+        "y": 0.983333349,
+        "z": 0.896778643
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.9446949,
+        "z": 0.0,
+        "w": -0.3279507
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "componentSaveData": {
+        "PlayerInteraction": {
+          "playerPosition": "-1.341522,0.9833333,0.8967786"
+        },
+        "PlayerHealth": {
+          "currentHealth": "50",
+          "maxHealth": "100"
+        },
+        "PlayerInventoryManager": {
+          "inventory": ""
+        }
+      },
+      "children": []
+    },
+    {
+      "uniqueID": "b46c32c9-98f6-49cb-90f0-8941305eb65b",
+      "name": "TreasureChest",
+      "isActive": true,
+      "position": {
+        "x": -6.1175437,
+        "y": 1.0,
+        "z": 3.37500668
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": -0.9238802,
+        "z": 0.0,
+        "w": -0.382681876
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      },
+      "componentSaveData": {
+        "TreasureChest": {
+          "isOpen": "False"
+        }
+      },
+      "children": []
+    }
+  ],
+  "savedWorldItems": [
+    {
+      "itemID": "Recipe_RED_Potion_cd446750-5c45-4946-9ec7-e6c5fe69b9ee",
+      "position": {
+        "x": 3.96111417,
+        "y": 1.03949285,
+        "z": 3.85801888
+      },
+      "rotation": {
+        "x": 3.98139018E-05,
+        "y": 0.49999994,
+        "z": 0.0001000387,
+        "w": 0.866025448
+      }
+    }
+  ]
+}

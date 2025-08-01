@@ -7,7 +7,7 @@ using UnityEngine;
 /// A treasure chest can be activated (opened) and also damaged (broken).
 /// It doesn't need to implement ICollectable, so it isn't forced to.
 /// </summary>
-public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable 
+public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 {
     [Header("Health")]
     [SerializeField] private int maxHealth = 50;
@@ -33,8 +33,8 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 
     private void Awake()
     {
-        if(itemSpawner == null && TryGetComponent<ItemSpawner>(out ItemSpawner spawner))
-        itemSpawner = spawner;
+        if (itemSpawner == null && TryGetComponent<ItemSpawner>(out ItemSpawner spawner))
+            itemSpawner = spawner;
     }
 
     private void Start()
@@ -46,11 +46,14 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
     {
         if (currentHealth > 0) return;
         OnChestOpen?.Invoke(isOpen = !isOpen);
-        
-        if(items.Count > 0)
-        foreach (ItemData item in items)
-        {
+
+        if (items.Count > 0)
+        {   // Spawn Items in the items list
+            foreach (ItemData item in items)
+            {
                 itemSpawner.SpawnItem(item);
+            }
+            items.Clear();
         }
     }
 
@@ -61,7 +64,7 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 
     public void TakeDamage(int amount)
     {
-        if(currentHealth <= 0) return;
+        if (currentHealth <= 0) return;
 
         currentHealth -= amount;
         if (currentHealth <= 0) currentHealth = 0;
