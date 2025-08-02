@@ -41,11 +41,12 @@ public class PlayerCamera : MonoBehaviour
         // Handle camera rotation when the middle mouse button is held down
         HandleRotation();
 
-
-        m_camera.transform.position = Vector3.Lerp(m_camera.transform.position, cameraOffset + new Vector3(
-                (transform.position.x + currentRotation),
+        Vector3 tmpCameraPos = Vector3.Lerp(m_camera.transform.position, cameraOffset + new Vector3(
+                0,
                 (transform.position.y + currentZoomDistance),
                 (transform.position.z - currentZoomDistance)), Time.deltaTime);
+        tmpCameraPos.x = cameraOffset.x + (transform.position.x + currentRotation);
+        m_camera.transform.position = tmpCameraPos;
         m_camera.transform.LookAt(transform);
     }
 
@@ -79,7 +80,8 @@ public class PlayerCamera : MonoBehaviour
                 currentRotation = 0f;
                 return;
             } 
-            currentRotation = Mathf.SmoothStep(currentRotation, 0, Time.deltaTime * rotationSpeed * 10.0f);
+            currentRotation = Mathf.Lerp(currentRotation, 0f, Time.deltaTime * rotationSpeed * 20.0f);
+                //Mathf.SmoothStep(currentRotation, 0, Time.deltaTime * rotationSpeed * 20.0f);
         }
     }
 }
