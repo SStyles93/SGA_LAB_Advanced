@@ -15,17 +15,34 @@ public class ItemData : ScriptableObject
     [Tooltip("The name of the item that will be displayed in the UI.")]
     public string itemName;
 
+    // [TextArea] allows for a multi-line string field in the Inspector,
+    // which is much better for writing descriptions.
+    [Tooltip("The description of the item, shown when the player inspects it.")]
+    [TextArea(3, 5)]
+    public string description;
+
+    // [Range] constrains a numerical value between a minimum and maximum.
+    // This prevents data entry errors, like setting a negative value.
+    [Tooltip("The monetary value of the item.")]
+    [Range(0, 999)]
+    public int value;
+
+
+
+    [Space(15)]
+    [Header("Item Graphical Settings")]
     [Tooltip("The icon that will represent this item in the inventory.")]
     public Sprite icon;
 
     [Tooltip("The object that will represent the item in the world")]
     public GameObject prefab;
 
-    // [TextArea] allows for a multi-line string field in the Inspector,
-    // which is much better for writing descriptions.
-    [Tooltip("The description of the item, shown when the player inspects it.")]
-    [TextArea(3, 5)]
-    public string description;
+    [Tooltip("Trail's colors for when the object is spawned \n[0] - Begin of trail\n[1] - End of trail")]
+    //Color Usage is to declare HDR colors
+    [ColorUsage(true, true)]
+    public Color[] trailColors = new Color[2] { Color.white, Color.white };
+
+
 
     // [Space] adds a visual gap in the Inspector, which helps to separate
     // different groups of variables for better clarity.
@@ -38,12 +55,6 @@ public class ItemData : ScriptableObject
 
     [Tooltip("Is this item stackable in the inventory?")]
     public bool isStackable = true;
-
-    // [Range] constrains a numerical value between a minimum and maximum.
-    // This prevents data entry errors, like setting a negative value.
-    [Tooltip("The monetary value of the item.")]
-    [Range(0, 999)]
-    public int value;
 
     // This is a private variable. By default, it is not visible in the Inspector.
     private string internalId = System.Guid.NewGuid().ToString();

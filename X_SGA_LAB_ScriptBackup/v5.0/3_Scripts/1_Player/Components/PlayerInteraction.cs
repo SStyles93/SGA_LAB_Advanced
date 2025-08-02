@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System;
 
 [RequireComponent(typeof(CharacterController), typeof(NavMeshAgent))]
 public class PlayerInteraction : MonoBehaviour, ISaveable
@@ -20,6 +21,11 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
     // --- Component & State Variables ---
     private NavMeshAgent navMeshAgent;
     private Coroutine followAndInteractCoroutine;
+    public static event Action<WorldItem> OnCollect;
+
+    // --- Referenced Objects ---
+    [Header("World Character Settings")]
+    [SerializeField] //Debug purpose
 
     // --- Debug Variable ---
     private Vector3 hitPosition = Vector3.zero;
@@ -80,7 +86,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
     {
         navMeshAgent.SetDestination(target.transform.position);
 
-        while (Vector3.Distance(transform.position, target.transform.position) > interactionDistance)
+        while (Vector3.Distance(transform.position + Vector3.up, target.transform.position) > interactionDistance)
         {
             yield return null;
         }
@@ -97,6 +103,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
         }
         if (target.TryGetComponent<ICollectable>(out var collectable))
         {
+            OnCollect?.Invoke(collectable as WorldItem);
             collectable.Collect(transform.GetComponent<PlayerInventoryManager>());
         }
 
@@ -138,7 +145,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
     {
         // Draw a yellow wire sphere representing the interaction distance.
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionDistance);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, interactionDistance);
     }
 
 

@@ -61,6 +61,7 @@ public class IngredientStation : MonoBehaviour, IActivatable, ISaveable
             if(currentWorldItem != null) { Destroy(currentWorldItem); currentWorldItem = null; }
             currentWorldItem = Instantiate(currentItem.prefab, worldItemPosition.transform.position, Quaternion.identity, worldItemPosition.transform);
             currentWorldItem.GetComponent<WorldItem>().enabled = false;
+            currentWorldItem.layer = 0;
         }
         else
         {

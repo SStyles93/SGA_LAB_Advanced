@@ -46,10 +46,6 @@ public class PlayerCamera : MonoBehaviour
                 (transform.position.x + currentRotation),
                 (transform.position.y + currentZoomDistance),
                 (transform.position.z - currentZoomDistance)), Time.deltaTime);
-            //cameraOffset + new Vector3(
-            //    (transform.position.x + currentRotation),
-            //    (transform.position.y + currentZoomDistance),
-            //    (transform.position.z - currentZoomDistance));
         m_camera.transform.LookAt(transform);
     }
 
