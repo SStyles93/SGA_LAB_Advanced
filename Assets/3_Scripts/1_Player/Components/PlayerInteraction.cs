@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System;
 
 [RequireComponent(typeof(CharacterController), typeof(NavMeshAgent))]
 public class PlayerInteraction : MonoBehaviour, ISaveable
@@ -16,6 +17,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
 
     [Header("Movement Settings")]
     [SerializeField] private float rotationSpeed = 10f;
+    public static Action<bool> OnCollect;
 
     // --- Component & State Variables ---
     private NavMeshAgent navMeshAgent;
@@ -80,7 +82,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
     {
         navMeshAgent.SetDestination(target.transform.position);
 
-        while (Vector3.Distance(transform.position, target.transform.position) > interactionDistance)
+        while (Vector3.Distance(transform.position + Vector3.up, target.transform.position) > interactionDistance)
         {
             yield return null;
         }
@@ -98,6 +100,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
         if (target.TryGetComponent<ICollectable>(out var collectable))
         {
             collectable.Collect(transform.GetComponent<PlayerInventoryManager>());
+            OnCollect?.Invoke(true);
         }
 
         followAndInteractCoroutine = null;
@@ -138,7 +141,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
     {
         // Draw a yellow wire sphere representing the interaction distance.
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionDistance);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up, interactionDistance);
     }
 
 
