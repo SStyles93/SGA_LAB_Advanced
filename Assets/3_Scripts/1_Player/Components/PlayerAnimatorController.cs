@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class PlayerAnimatorController : MonoBehaviour
 {
+    // --- Components ---
     [SerializeField]
     private Animator animator;
     [SerializeField]
@@ -10,16 +11,25 @@ public class PlayerAnimatorController : MonoBehaviour
     [SerializeField]
     private PlayerActions actions;
 
+    // --- Body Parts ---
+    [SerializeField]
+    private Transform playerRightHand;
+
+    private WorldItem currentlyHeldItem;
+
     int MovementSpeed = 0;
     int PickUpTrigger = 0;
 
-    void OnEnable()
+    float savedNavMeshSpeed = 0;
+
+    private void OnEnable()
     {
-        PlayerInteraction.OnCollect += PlayCollectAnimation;
+        PlayerInteraction.OnCollect += StartCollectAnimation;
     }
-    void OnDisable()
+
+    private void OnDisable()
     {
-        PlayerInteraction.OnCollect -= PlayCollectAnimation;
+        PlayerInteraction.OnCollect -= StartCollectAnimation;
     }
 
     void Awake()
@@ -52,15 +62,41 @@ public class PlayerAnimatorController : MonoBehaviour
         }
     }
 
-    void PlayCollectAnimation()
+    /// <summary>
+    /// Triggers the beginning of the Pickup animation
+    /// </summary>
+    void StartCollectAnimation(WorldItem item)
     {
+        //Sets the reference to the item being collected
+        currentlyHeldItem = item;
+
         if (animator != null) animator.SetTrigger(PickUpTrigger);
-        if (actions != null) actions.SetIsCollecting(true);
+        if (navMeshAgent != null)
+        {
+            savedNavMeshSpeed = navMeshAgent.speed;
+            navMeshAgent.speed = 0;
+        }
     }
 
-    //Is called at the end of the PickUp Action
-    void EndPickUp()
+    /// <summary>
+    /// Method called by the animator to playe the Collectable in the player's hand
+    /// </summary>
+    public void PlaceObjectInHand()
     {
-        if (actions != null) actions.SetIsCollecting(false);
+        currentlyHeldItem.GetComponent<Collider>().enabled = false;
+        currentlyHeldItem.GetComponent<Rigidbody>().isKinematic = true;
+        currentlyHeldItem.transform.position = playerRightHand.transform.position;
+        currentlyHeldItem.transform.parent = playerRightHand.transform;
+        currentlyHeldItem.transform.rotation = playerRightHand.rotation;
+    }
+  
+    /// <summary>
+    /// Method called by the animator to destroy the collectable at the correct moment
+    /// </summary>
+    public void EndCollection()
+    {
+        if(navMeshAgent != null) navMeshAgent.speed = savedNavMeshSpeed;
+        Destroy(currentlyHeldItem.gameObject);
+        currentlyHeldItem = null;
     }
 }

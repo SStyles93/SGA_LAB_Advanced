@@ -5,8 +5,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private PlayerInteraction playerInteraction;
     [SerializeField] private PlayerInventoryManager inventoryManager;
 
-    bool isCollecting = false;
-
     private void Awake()
     {
         playerInteraction = GetComponent<PlayerInteraction>();
@@ -25,17 +23,11 @@ public class PlayerActions : MonoBehaviour
         }
 
         if (inventoryManager.GetInventoryPannel().activeSelf) return;
-        if (isCollecting) return;
         
         // On left-click, try to interact or move.
         if (Input.GetMouseButtonDown(0))
         {
             playerInteraction.HandleLeftClick();
         }
-    }
-
-    public void SetIsCollecting(bool values)
-    {
-        isCollecting = values;
     }
 }

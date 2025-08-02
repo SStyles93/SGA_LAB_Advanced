@@ -104,19 +104,19 @@
       ]
     },
     {
-      "uniqueID": "f88fcb5d-f591-45f2-8acc-dc8c10e3a658",
+      "uniqueID": "7109b370-18f3-4305-9703-85c4f8391838",
       "name": "Player",
       "isActive": true,
       "position": {
-        "x": -1.34152246,
-        "y": 0.983333349,
-        "z": 0.896778643
+        "x": -2.674615,
+        "y": 1.08333337,
+        "z": 2.448422
       },
       "rotation": {
         "x": 0.0,
-        "y": 0.9446949,
+        "y": -0.576273859,
         "z": 0.0,
-        "w": -0.3279507
+        "w": 0.8172567
       },
       "scale": {
         "x": 1.0,
@@ -125,14 +125,14 @@
       },
       "componentSaveData": {
         "PlayerInteraction": {
-          "playerPosition": "-1.341522,0.9833333,0.8967786"
-        },
-        "PlayerHealth": {
-          "currentHealth": "50",
-          "maxHealth": "100"
+          "playerPosition": "-2.674615,1.083333,2.448422"
         },
         "PlayerInventoryManager": {
-          "inventory": ""
+          "inventory": "Recipe_RED_Potion_cd446750-5c45-4946-9ec7-e6c5fe69b9ee"
+        },
+        "PlayerHealth": {
+          "currentHealth": "75",
+          "maxHealth": "100"
         }
       },
       "children": []
@@ -142,9 +142,9 @@
       "name": "TreasureChest",
       "isActive": true,
       "position": {
-        "x": -6.1175437,
+        "x": -5.928,
         "y": 1.0,
-        "z": 3.37500668
+        "z": 3.186
       },
       "rotation": {
         "x": 0.0,
@@ -159,26 +159,12 @@
       },
       "componentSaveData": {
         "TreasureChest": {
-          "isOpen": "False"
+          "isOpen": "False",
+          "items": "_67b0d69e-0e75-4710-840e-4f7ffd8c329c,_91655866-a8a4-4a73-99e1-7e6d98cd36e3"
         }
       },
       "children": []
     }
   ],
-  "savedWorldItems": [
-    {
-      "itemID": "Recipe_RED_Potion_cd446750-5c45-4946-9ec7-e6c5fe69b9ee",
-      "position": {
-        "x": 3.96111417,
-        "y": 1.03949285,
-        "z": 3.85801888
-      },
-      "rotation": {
-        "x": 3.98139018E-05,
-        "y": 0.49999994,
-        "z": 0.0001000387,
-        "w": 0.866025448
-      }
-    }
-  ]
+  "savedWorldItems": []
 }

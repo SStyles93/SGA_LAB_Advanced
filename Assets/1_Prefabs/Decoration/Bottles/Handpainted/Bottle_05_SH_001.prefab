@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4583039889351699712}
   - component: {fileID: 1256262835283045407}
   - component: {fileID: 7437051090141347739}
+  - component: {fileID: 3079960311249850199}
   m_Layer: 0
   m_Name: Bottle_05_SH_001
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6149364899483879917}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,7 +68,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: b6d36d4d650ba754e9590f0a597a795f, type: 2}
   - {fileID: 2100000, guid: 80e860135d662f34896c2aa7d7736b31, type: 2}
-  - {fileID: 2100000, guid: 34d5417c44996534fbf53e8606d773b6, type: 2}
+  - {fileID: 2100000, guid: bcb942e69d402164bb980d443756667c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,6 +109,33 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4281124187638156854, guid: a222dfb50832d3f44b04d6b227959c4c, type: 3}
+--- !u!54 &3079960311249850199
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149364899483879917}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

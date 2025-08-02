@@ -72,9 +72,9 @@ public class ItemSpawner : MonoBehaviour
     /// </summary>
     private IEnumerator MoveAlongArcRoutine(Transform objectToMove, Vector3 start, Vector3 end)
     {
+        //Improvement: let the item hold this logic, just call it here
         TrailRenderer objectTrail = objectToMove.GetComponentInChildren<TrailRenderer>();
         if(objectTrail != null) objectTrail.enabled = true;
-
 
         float elapsedTime = 0f;
         
@@ -96,6 +96,8 @@ public class ItemSpawner : MonoBehaviour
         if (objectToMove != null)
         {
             objectToMove.position = end;
+
+            //Improvement: let the item hold this logic, just call it here
             if (objectTrail != null) objectTrail.enabled = false;
         }
     }

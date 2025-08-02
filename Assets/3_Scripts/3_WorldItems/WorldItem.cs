@@ -16,6 +16,7 @@ public class WorldItem : MonoBehaviour, ICollectable
 
     public event Action<string,bool> OnMouseOverObject;
 
+
     /// <summary>
     /// Called when the object becomes enabled and active.
     /// This is where we register with the manager.
@@ -43,24 +44,6 @@ public class WorldItem : MonoBehaviour, ICollectable
         }
     }
 
-    private void Awake()
-    {
-        TrailRenderer trailRender = GetComponentInChildren<TrailRenderer>();
-
-        if (trailRender != null)
-        {
-            Material materialInstance = trailRender.material;
-            if (itemData.trailColors.Length >= 2)
-            {
-                materialInstance.SetColor("_Color00", itemData.trailColors[0]); // Start Color
-                materialInstance.SetColor("_Color01", itemData.trailColors[1]); // End Color
-            }
-            else
-            {
-                Debug.LogWarning($"ItemData: \"{itemData.name}\" does not contain enough trail colors.");
-            }
-        }
-    }
 
     private void Start()
     {
@@ -69,6 +52,7 @@ public class WorldItem : MonoBehaviour, ICollectable
         {
             WorldItemManager.Instance.Register(this);
         }
+        SetTrailColour();
     }
 
     public void Collect(PlayerInventoryManager collectorInventory)
@@ -88,9 +72,6 @@ public class WorldItem : MonoBehaviour, ICollectable
         // 2. Add the item to the CORRECT player's inventory.
         collectorInventory.AddItem(itemData);
         Debug.Log($"{collectorInventory.gameObject.name} collected {itemData.itemName}.");
-
-        // 3. Destroy the GameObject from the world.
-        Destroy(gameObject);
     }
 
     private void OnMouseEnter()
@@ -103,5 +84,27 @@ public class WorldItem : MonoBehaviour, ICollectable
     {
         if (gameObject.layer != 10) return;
         OnMouseOverObject?.Invoke(itemData.itemName, false);
+    }
+
+    /// <summary>
+    /// Method used to set the two colors of the WorldObject's Trail according to the ItemData
+    /// </summary>
+    private void SetTrailColour()
+    {
+        TrailRenderer trailRender = GetComponentInChildren<TrailRenderer>(true);
+
+        if (trailRender != null)
+        {
+            Material materialInstance = trailRender.material;
+            if (itemData.trailColors.Length >= 2)
+            {
+                materialInstance.SetColor("_Color00", itemData.trailColors[0]); // Start Color
+                materialInstance.SetColor("_Color01", itemData.trailColors[1]); // End Color
+            }
+            else
+            {
+                Debug.LogWarning($"ItemData: \"{itemData.name}\" does not contain enough trail colors.");
+            }
+        }
     }
 }

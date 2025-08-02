@@ -17,11 +17,15 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
 
     [Header("Movement Settings")]
     [SerializeField] private float rotationSpeed = 10f;
-    public static event Action OnCollect;
 
     // --- Component & State Variables ---
     private NavMeshAgent navMeshAgent;
     private Coroutine followAndInteractCoroutine;
+    public static event Action<WorldItem> OnCollect;
+
+    // --- Referenced Objects ---
+    [Header("World Character Settings")]
+    [SerializeField] //Debug purpose
 
     // --- Debug Variable ---
     private Vector3 hitPosition = Vector3.zero;
@@ -99,8 +103,8 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
         }
         if (target.TryGetComponent<ICollectable>(out var collectable))
         {
+            OnCollect?.Invoke(collectable as WorldItem);
             collectable.Collect(transform.GetComponent<PlayerInventoryManager>());
-            OnCollect?.Invoke();
         }
 
         followAndInteractCoroutine = null;

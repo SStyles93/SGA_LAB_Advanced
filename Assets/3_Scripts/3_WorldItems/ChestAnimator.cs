@@ -9,12 +9,12 @@ public class ChestAnimator : MonoBehaviour
 
     private void OnEnable()
     {
-        TreasureChest.OnChestOpen += OpenChest;
+        TreasureChest.OnChestChangeState += OpenChest;
     }
 
     private void OnDisable()
     {
-        TreasureChest.OnChestOpen -= OpenChest;
+        TreasureChest.OnChestChangeState -= OpenChest;
     }
 
     private void Awake()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -19,16 +20,16 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 
     public event Action<int, int> OnHealthChanged;
 
-    public static event Action<bool> OnChestOpen;
+    public static event Action<bool> OnChestChangeState;
 
     private void OnEnable()
     {
-        OnChestOpen += OpenChest;
+        OnChestChangeState += OpenChest;
     }
 
     private void OnDisable()
     {
-        OnChestOpen -= OpenChest;
+        OnChestChangeState -= OpenChest;
     }
 
     private void Awake()
@@ -45,7 +46,7 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
     public void Activate(GameObject activator)
     {
         if (currentHealth > 0) return;
-        OnChestOpen?.Invoke(isOpen = !isOpen);
+        OnChestChangeState?.Invoke(isOpen = !isOpen);
 
         if (items.Count > 0)
         {   // Spawn Items in the items list
@@ -77,11 +78,16 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
 
     public Dictionary<string, string> CaptureState()
     {
+        List<string> itemIDs = items.Select(item => item.ItemID).ToList();
+        string itemStateString = string.Join(",", itemIDs);
+
         var state = new Dictionary<string, string>
         {
             // Convert all values to strings for serialization.
             { "isOpen", isOpen.ToString() },
             //{ "currentHealth", currentHealth.ToString() }
+            { "items", itemStateString }
+
         };
         return state;
     }
@@ -91,14 +97,43 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
         if (state.TryGetValue("isOpen", out string isOpenStr))
         {
             // Parse the string back to its original type.
-            bool.TryParse(isOpenStr, out isOpen);
+            if(bool.TryParse(isOpenStr, out isOpen))
+            OnChestChangeState?.Invoke(isOpen);
         }
         //if (state.TryGetValue("currentHealth", out string healthStr))
         //{
         //    // Parse the string back to its original type.
         //    int.TryParse(healthStr, out currentHealth);
         //}
-    }
 
+        // Check if the saved data contains an "item" key.
+        if (state.TryGetValue("items", out string savedItemString))
+        {
+            // Clear the current item list before loading the new one.
+            items.Clear();
+
+            // Split the single string back into a list of individual IDs.
+            List<string> itemIDs = savedItemString.Split(',').ToList();
+
+            // --- Find all ItemData assets in the project ---
+            // This is the most complex part. We need a way to map an ID back to an asset.
+            // In production we probably would use Unity's Adressables
+            var allItems = Resources.FindObjectsOfTypeAll<ItemData>().ToDictionary(item => item.ItemID);
+
+            // Re-populate the item list using the loaded IDs.
+            foreach (string id in itemIDs)
+            {
+                if (allItems.TryGetValue(id, out ItemData itemAsset))
+                {
+                    items.Add(itemAsset);
+                }
+                else
+                {
+                    Debug.LogWarning($"Could not find ItemData asset with ID: {id}");
+                }
+            }
+
+        }
+    }
     #endregion
 }
