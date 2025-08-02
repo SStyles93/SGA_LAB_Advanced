@@ -23,10 +23,6 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
     private Coroutine followAndInteractCoroutine;
     public static event Action<WorldItem> OnCollect;
 
-    // --- Referenced Objects ---
-    [Header("World Character Settings")]
-    [SerializeField] //Debug purpose
-
     // --- Debug Variable ---
     private Vector3 hitPosition = Vector3.zero;
 

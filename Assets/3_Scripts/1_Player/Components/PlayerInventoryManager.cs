@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Manages the player's inventory. This script demonstrates safe and efficient
