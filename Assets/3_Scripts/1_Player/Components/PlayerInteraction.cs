@@ -17,7 +17,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
 
     [Header("Movement Settings")]
     [SerializeField] private float rotationSpeed = 10f;
-    public static Action<bool> OnCollect;
+    public static event Action OnCollect;
 
     // --- Component & State Variables ---
     private NavMeshAgent navMeshAgent;
@@ -100,7 +100,7 @@ public class PlayerInteraction : MonoBehaviour, ISaveable
         if (target.TryGetComponent<ICollectable>(out var collectable))
         {
             collectable.Collect(transform.GetComponent<PlayerInventoryManager>());
-            OnCollect?.Invoke(true);
+            OnCollect?.Invoke();
         }
 
         followAndInteractCoroutine = null;

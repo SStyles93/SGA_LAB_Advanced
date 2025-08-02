@@ -7,16 +7,6 @@ public class PlayerActions : MonoBehaviour
 
     bool isCollecting = false;
 
-    private void OnEnable()
-    {
-        PlayerInteraction.OnCollect += SetIsCollecting;
-    }
-
-    private void OnDisable()
-    {
-        PlayerInteraction.OnCollect -= SetIsCollecting;
-    }
-
     private void Awake()
     {
         playerInteraction = GetComponent<PlayerInteraction>();
@@ -44,8 +34,8 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
-    private void SetIsCollecting(bool state)
+    public void SetIsCollecting(bool values)
     {
-        isCollecting = state;
+        isCollecting = values;
     }
 }

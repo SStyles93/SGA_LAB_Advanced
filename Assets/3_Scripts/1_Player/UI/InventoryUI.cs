@@ -45,6 +45,11 @@ public class InventoryUI : MonoBehaviour
         PlayerInventoryManager.OnInventoryChanged -= RedrawUI;
     }
 
+    private void Awake()
+    {
+        if (inventoryManager == null) inventoryManager = GetComponentInParent<PlayerInventoryManager>();
+    }
+
     private void Start()
     {
         inventoryPanel.SetActive(false);
