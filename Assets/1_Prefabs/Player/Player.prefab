@@ -2139,9 +2139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae5810c3076ceb4c97d17626002a8f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffset: {x: 0, y: 8, z: -8}
+  cameraOffset: {x: 0, y: 4, z: -6}
   zoomSpeed: 10
-  minMaxZoomDistance: {x: -3, y: 5}
+  minMaxZoomDistance: {x: -1, y: 5}
   rotationSpeed: 0.25
   maxRotationAngle: 5
 --- !u!114 &8338721635533001856
