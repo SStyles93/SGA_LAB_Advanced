@@ -1394,7 +1394,7 @@
     "m_ObjectId": "5b97f010d31845b4ac7a390e3b2f7ade",
     "m_Title": "Color",
     "m_Position": {
-        "x": -987.0,
+        "x": -987.000244140625,
         "y": -252.00006103515626
     }
 }
@@ -2290,7 +2290,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.0,
+    "m_Value": 0.05000000074505806,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2676,8 +2676,8 @@
     "m_ObjectId": "c4b2c5c587534d72a86595c13b6eb9aa",
     "m_Title": "Offset",
     "m_Position": {
-        "x": -2711.0,
-        "y": -239.00009155273438
+        "x": -2711.00048828125,
+        "y": -239.00003051757813
     }
 }
 
@@ -3001,8 +3001,8 @@
     "m_ObjectId": "d64a09dc07204b0395a02539e07bd680",
     "m_Title": "Rotation",
     "m_Position": {
-        "x": -1715.0,
-        "y": -246.00009155273438
+        "x": -1715.000244140625,
+        "y": -246.00003051757813
     }
 }
 

@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eaeab95ea7af71c458e1ed72845cce34, type: 2}
+  - {fileID: 2100000, guid: c3cbe024fcf160a4db6c4f5761d595e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,6 +134,6 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 5965043561444354217, guid: 212d4f8fe16bc7f45a8b913305d888c3, type: 3}
