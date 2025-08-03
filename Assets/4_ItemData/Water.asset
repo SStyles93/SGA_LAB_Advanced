@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Water
   description: Clear blue water...maybe too clear...
   value: 1
-  icon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 77ad360f00a1b8d4da5ec9494f67f43e, type: 3}
   prefab: {fileID: 3693009134779519176, guid: 1c13e09bd3aacb340bc6419be2d0a7b4, type: 3}
   trailColors:
   - {r: 0, g: 2.6362648, b: 16, a: 1}

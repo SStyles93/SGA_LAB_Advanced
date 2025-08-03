@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Strawberry
   description: A nice and juicy strawberry
   value: 999
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: dbe609238faafb1438d9fbaaf79fd9b9, type: 3}
   prefab: {fileID: 8747181197904860207, guid: 3b210d6f99276d645b5fa9db89d4548e, type: 3}
   trailColors:
   - {r: 41.365734, g: 0, b: 0, a: 1}
