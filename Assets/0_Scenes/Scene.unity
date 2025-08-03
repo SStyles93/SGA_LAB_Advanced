@@ -924,6 +924,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2957853977541980350, guid: fafe9a18fe732d040a5f53526d131734, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f0156409c77b5c4ca8a2cc22efbb26a, type: 2}
     - target: {fileID: 3041189277434487612, guid: fafe9a18fe732d040a5f53526d131734, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.441
@@ -964,6 +968,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6890169797994490558, guid: fafe9a18fe732d040a5f53526d131734, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f0156409c77b5c4ca8a2cc22efbb26a, type: 2}
     - target: {fileID: 7101071412798818136, guid: fafe9a18fe732d040a5f53526d131734, type: 3}
       propertyPath: m_Name
       value: TreasureChest
