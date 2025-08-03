@@ -1,0 +1,48 @@
+Unity Attributes:
+* [Header(“Name of the category”)]
+* [SerializeField]
+* [Space(value in pixels)]
+* [Tooltip(“Description”]
+* [Range(min, max)]
+* Comments for variables // and for methods /// or /**
+* [ExacuteAlways] or [ExecuteInEditMode]
+teebarjunk/Unity-Built-In-Attributes: A list of built in Unity Attributes.
+Good practices:
+* If,if,if -> switch (fallthrough / break)
+* If,else ->  ternary operators (var = cond. ? true : false)
+* Find(), FindGameObjectWithTag(« tag ») + cached refs. + SerializedField drag&drop
+* TryGetComponent<Comp>(out nameOfComp)
+* Access Modifiers
+* Pattern Matching
+Debug :
+* OnDrawGizmos() & OnDrawGizmosSelected()
+Unity - Scripting API: Gizmos (unity3d.com)
+* Profiler
+Advanced principles :
+* S.O.L.I.D
+Advanced Unity :
+* Scriptable Objects
+* Saving with JSON
+OOD vs DOD
+
+
+V5.0 
+	- Final State
+V4.0:
+	-PlayerHealth -> ISaveable, Delegate
+	-PlayerHealthBarUI -> Delegate subscription
+V3.0:
+	-PlayerInteraction -> Coroutines, Gizmos, Raycast, Type-Cast
+V2.0:
+	-Crafting -> table Craft()
+	-WorldItem -> OnTriggerEnter, AddItem
+	-PlayerInventoryManager -> Delegate, Add/RemoveItem(), ToggleInventoryVisibility()
+	-InventoryUI -> On(En/Dis)able()
+V1.0:
+	-WorldItemManager() -> Singleton
+	-WorldItem -> On(En/Dis)able() (un)registering, Start() registering
+	-PlayerInventoryManager -> UpdateStatus
+	-ItemType -> Enum for types
+	-HealthPotionData -> Uncomment, Use()
+	-UsableItem -> just show to students
+	-ItemData() -> All
