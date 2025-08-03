@@ -4948,6 +4948,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alchemist_Base02_001
       objectReference: {fileID: 0}
+    - target: {fileID: 5384200271797752005, guid: 9cf831fc4e1f0f04e91e3a43088358af, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: f4090facbf430ac4c89dcf5b9b3bb5f9, type: 2}
+    - target: {fileID: 7453492942551770173, guid: 9cf831fc4e1f0f04e91e3a43088358af, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
