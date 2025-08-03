@@ -6,6 +6,7 @@ public class PlayerCamera : MonoBehaviour
 {
 
     [SerializeField] private Vector3 cameraOffset = new Vector3(0,4,-4);
+    [SerializeField] private float targetHeightOffset = .5f;
 
     private Camera m_camera;
 
@@ -47,7 +48,10 @@ public class PlayerCamera : MonoBehaviour
                 (transform.position.z - currentZoomDistance)), Time.deltaTime);
         tmpCameraPos.x = cameraOffset.x + (transform.position.x + currentRotation);
         m_camera.transform.position = tmpCameraPos;
-        m_camera.transform.LookAt(transform);
+
+        Vector3 cameraTarget = transform.position;
+        cameraTarget.y += targetHeightOffset;
+        m_camera.transform.LookAt(cameraTarget);
     }
 
     private void HandleZoom()

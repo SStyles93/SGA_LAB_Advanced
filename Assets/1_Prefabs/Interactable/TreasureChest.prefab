@@ -3676,7 +3676,7 @@ Transform:
   m_GameObject: {fileID: 4569924520256354295}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.16, y: 0.174, z: 4.62}
+  m_LocalPosition: {x: 0.16, y: 0.223, z: 4.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5546,7 +5546,7 @@ MonoBehaviour:
   landingPoint: {fileID: 3631579720992850326}
   arcHeight: 2.73
   travelDuration: 1.25
-  landingRadius: 0.63
+  landingRadius: 2.13
   gizmoPathResolution: 20
 --- !u!1 &7155924650613254892
 GameObject:
