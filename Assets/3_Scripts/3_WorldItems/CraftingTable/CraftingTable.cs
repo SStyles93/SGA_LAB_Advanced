@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CraftingTable : MonoBehaviour, IActivatable
+public class CraftingTable : MonoBehaviour /*IMPLEMENT the Activatable inferface*/
 {
     [Header("Configuration")]
     [Tooltip("The list of ingredient stations connected to this table.")]
@@ -11,27 +11,20 @@ public class CraftingTable : MonoBehaviour, IActivatable
 
     // We need a reference to the player's inventory to give them the crafted item.
     [SerializeField] private PlayerInventoryManager playerInventory;
-    
-    //Item spawner used to spawn WorldItems
-    private ItemSpawner itemSpawner;
 
-    private void Awake()
-    {
-        if (itemSpawner == null && TryGetComponent<ItemSpawner>(out var spawner))
-        {
-            itemSpawner = spawner;
-        }
-    }
 
+    ///// <summary>
+    ///// This method will be called when the player activated the table
+    ///// </summary>
+    ///*IMPLEMENT the interfaces method*/
+    //{
+    //    /*IMPLEMENT: A Log to show the name of the player that activated it: "Table Activated by TheNAMEofTheGuy" */
+    //    /*IMPLEMENT: We want to keep a ref of the PlayerInventoryManager: */
+    //    /*IMPLEMENT: Here we are going to call the Craft() method */
+    //}
     /// <summary>
     /// This method will be called when the player activated the table
     /// </summary>
-    public void Activate(GameObject activator)
-    {
-        Debug.Log($"Table Activated by {activator.name}");
-        playerInventory = activator.GetComponent<PlayerInventoryManager>();
-        Craft();
-    }
 
     /// <summary>
     /// This is the primary method to be called by a UI button or player interaction.
@@ -70,9 +63,7 @@ public class CraftingTable : MonoBehaviour, IActivatable
             }
 
             // Add the crafted item to the player's inventory.
-            if(itemSpawner == null) playerInventory.AddItem(matchedRecipe.outputItem);
-            else
-                itemSpawner.SpawnItem(matchedRecipe.outputItem);
+            playerInventory.AddItem(matchedRecipe.outputItem);
         }
         else
         {

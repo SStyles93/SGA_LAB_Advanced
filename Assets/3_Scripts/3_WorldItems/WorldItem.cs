@@ -14,47 +14,13 @@ public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
 
     public ItemData GetItemData() => itemData;
 
-    public event Action<string,bool> OnMouseOverObject;
-
-
-    /// <summary>
-    /// Called when the object becomes enabled and active.
-    /// This is where we register with the manager.
-    /// </summary>
-    private void OnEnable()
-    {
-        // Check if the WorldItemManager instance exists to avoid errors on game quit.
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Register(this);
-        }
-    }
-
-    /// <summary>
-    /// Called when the object becomes disabled or is destroyed.
-    /// This is where we unregister from the manager.
-    /// </summary>
-    private void OnDisable()
-    {
-        // Check if the WorldItemManager instance still exists.
-        // This is important because on game quit, the manager might be destroyed first.
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Unregister(this);
-        }
-    }
-
-
     private void Start()
     {
-        //Ensure registering of Item
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Register(this);
-        }
+
         SetTrailColour();
     }
 
+    #region /!\ TO DELETE /!\
     private void OnTriggerEnter(Collider other)
     {
         if(other != null && other.CompareTag("Player"))
@@ -63,6 +29,7 @@ public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
             Destroy(this.gameObject);
         }
     }
+    #endregion
 
     /*UNCOMMENT*/
     //public void Collect(PlayerInventoryManager collectorInventory)
@@ -84,17 +51,6 @@ public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
     //    Debug.Log($"{collectorInventory.gameObject.name} collected {itemData.itemName}.");
     //}
 
-    private void OnMouseEnter()
-    {
-        if (gameObject.layer != 10) return;
-        OnMouseOverObject?.Invoke(itemData.itemName, true);
-    }
-
-    private void OnMouseExit()
-    {
-        if (gameObject.layer != 10) return;
-        OnMouseOverObject?.Invoke(itemData.itemName, false);
-    }
 
     /// <summary>
     /// Method used to set the two colors of the WorldObject's Trail according to the ItemData

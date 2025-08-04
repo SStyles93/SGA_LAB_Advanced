@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 
-public class IngredientStation : MonoBehaviour
+public class IngredientStation : MonoBehaviour /*IMPLEMENT: the Activable interface*/
 {
     [Header("Dependencies")]
     [Tooltip("Reference to the main Inventory UI panel.")]

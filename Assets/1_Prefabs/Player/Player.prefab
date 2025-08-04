@@ -2003,7 +2003,6 @@ GameObject:
   - component: {fileID: 6901279915424782673}
   - component: {fileID: 3946370093229391650}
   - component: {fileID: 8603853258531650520}
-  - component: {fileID: 4025822408534389560}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2172,10 +2171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
-  interactionDistance: 1.4
-  interactableLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -2227,19 +2222,6 @@ MonoBehaviour:
   navMeshAgent: {fileID: 1975810439397789308}
   actions: {fileID: 8338721635533001856}
   playerRightHand: {fileID: 7268767587968673961}
---- !u!114 &4025822408534389560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7856180493514049182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc93ad1902cc454492ee9108418ab89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueId: 7109b370-18f3-4305-9703-85c4f8391838
 --- !u!1 &7974893519037559260
 GameObject:
   m_ObjectHideFlags: 0

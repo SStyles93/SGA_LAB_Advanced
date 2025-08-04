@@ -77,7 +77,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    #region /!\ TO IMPLEMENT /!\
+    #region /!\ TO IMPLEMENT Coroutines /!\
 
     ///// <summary>
     ///// Method to Start an Interaction with Objects
@@ -122,9 +122,14 @@ public class PlayerInteraction : MonoBehaviour
 
     //    /*IMPLEMENT: We also want them to be collectable (passing the PlayerInventoryManager)*/
     //    //We also want to invoke our delegate using a type cast (interface as Type)
-        
+
     //    followAndInteractCoroutine = null;
     //}
+
+    #endregion
+
+    #region /!\ TO IMPLEMENT Gizmos /!\
+
 
     // --- GIZMOS FOR VISUAL DEBUGGING ---
 

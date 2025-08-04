@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3348215879420037488}
-  - component: {fileID: 2385696050147527586}
   m_Layer: 0
   m_Name: CraftingTable
   m_TagString: Untagged
@@ -37,19 +36,6 @@ Transform:
   - {fileID: 9167004153586485549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2385696050147527586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2821138438683272637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc93ad1902cc454492ee9108418ab89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueId: 5cee38ad-aa21-48d1-9a1d-719242a4342f
 --- !u!1 &5682354134857420886
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +159,6 @@ GameObject:
   - component: {fileID: 8781320188087328958}
   - component: {fileID: 1951619109642277718}
   - component: {fileID: 6997968444999778267}
-  - component: {fileID: 7532283328146297975}
   m_Layer: 10
   m_Name: Cauldron
   m_TagString: Untagged
@@ -315,25 +300,6 @@ MonoBehaviour:
   - {fileID: 57738545254321391}
   - {fileID: 7382128438321059094}
   playerInventory: {fileID: 0}
---- !u!114 &7532283328146297975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6594551962834924029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d9c533f6f0e4640b5b32a48fd7ed0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemToSpawn: {fileID: 0}
-  spawnPoint: {fileID: 2417038711085470156}
-  landingPoint: {fileID: 3328706180461069529}
-  arcHeight: 2.5
-  travelDuration: 1
-  landingRadius: 0.88
-  gizmoPathResolution: 20
 --- !u!1 &6781604582498796600
 GameObject:
   m_ObjectHideFlags: 0
@@ -5406,7 +5372,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 519654807583234661, guid: 63b0967854c1b4440a24ec8081545dc4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5483,7 +5450,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 519654807583234661, guid: 63b0967854c1b4440a24ec8081545dc4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5560,7 +5528,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 519654807583234661, guid: 63b0967854c1b4440a24ec8081545dc4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

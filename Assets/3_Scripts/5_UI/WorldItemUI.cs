@@ -6,18 +6,6 @@ public class WorldItemUI : MonoBehaviour
     [SerializeField] private WorldItem worldItem;
     [SerializeField] private TextMeshPro textMesh;
 
-    private void OnEnable()
-    {
-        if (worldItem != null)
-            worldItem.OnMouseOverObject += ShowName;
-    }
-
-    private void OnDisable()
-    {
-        if (worldItem != null)
-            worldItem.OnMouseOverObject -= ShowName;
-    }
-
     private void Awake()
     {
         if (textMesh == null && TryGetComponent<TextMeshPro>(out var textMeshPro))
@@ -29,7 +17,7 @@ public class WorldItemUI : MonoBehaviour
 
     private void Start()
     {
-        textMesh.enabled = false;
+        ShowName(worldItem.GetItemData().name, true);
     }
 
     private void ShowName(string name, bool state)
