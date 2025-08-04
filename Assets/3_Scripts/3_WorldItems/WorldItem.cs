@@ -1,5 +1,5 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Represents an item that exists in the game world and can be picked up.
@@ -14,44 +14,44 @@ public class WorldItem : MonoBehaviour, ICollectable
 
     public ItemData GetItemData() => itemData;
 
-    public event Action<string,bool> OnMouseOverObject;
+    public event Action<string, bool> OnMouseOverObject;
 
+    ///// <summary>
+    ///// Called when the object becomes enabled and active.
+    ///// This is where we register with the manager.
+    ///// </summary>
+    ///*IMPLEMENT: We want to REGISTER the item when enabled*/
+    ////TIP: Use OnEnable()
+    //{
+    //    //Check if the WorldItemManager instance exists to avoid errors on game quit.*/
+    //    /*IMPLEMENT:*/
+    //    {
+    //        /*IMPLEMENT: Register your Item*/
+    //    }
+    //}
 
-    /// <summary>
-    /// Called when the object becomes enabled and active.
-    /// This is where we register with the manager.
-    /// </summary>
-    private void OnEnable()
-    {
-        // Check if the WorldItemManager instance exists to avoid errors on game quit.
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Register(this);
-        }
-    }
+    ///// <summary>
+    ///// Called when the object becomes disabled or is destroyed.
+    ///// This is where we unregister from the manager.
+    ///// </summary>
+    ///// ///*IMPLEMENT: We want to UNREGISTER the item when enabled*/
+    //////TIP: Use OnDisable()
+    //{
+    //    //Check if the WorldItemManager instance still exists.
+    //    // This is important because on game quit, the manager might be destroyed first.
+    //    /*IMPLEMENT:*/
+    //    {
+    //        /*IMPLEMENT: Unregister your Item*/
+    //    }
+    //}
 
-    /// <summary>
-    /// Called when the object becomes disabled or is destroyed.
-    /// This is where we unregister from the manager.
-    /// </summary>
-    private void OnDisable()
-    {
-        // Check if the WorldItemManager instance still exists.
-        // This is important because on game quit, the manager might be destroyed first.
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Unregister(this);
-        }
-    }
 
 
     private void Start()
     {
         //Ensure registering of Item
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Register(this);
-        }
+        /*IMPLEMENT: Registering of Item*/
+
         SetTrailColour();
     }
 

@@ -34,15 +34,13 @@ public class PlayerHealthBarUI : MonoBehaviour
     //// Subscribe to the event when this component is enabled.
     //private void OnEnable()
     //{
-    //    /*We want to Implement subscription from the OnHealthChanged delegate*/
-    //    //___________________IMPLEMENT HERE ___________________
+    //    /*IMPLEMENT: We want to Implement subscription from the OnHealthChanged delegate*/
     //}
 
     //// Unsubscribe when the component is disabled to prevent errors.
     //private void OnDisable()
     //{
-    //    /*We want to Implement un-subscription from the OnHealthChanged delegate*/
-    //    //___________________IMPLEMENT HERE ___________________
+    //    /*IMPLEMENT: We want to Implement un-subscription from the OnHealthChanged delegate*/
     //}
 
     #endregion

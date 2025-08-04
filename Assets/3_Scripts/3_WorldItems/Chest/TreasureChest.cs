@@ -15,6 +15,12 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
     [SerializeField] private int currentHealth;
     [SerializeField] private List<ItemData> items = new List<ItemData>();
 
+    #region TO REMOVE
+    /*TEMPORARY: for the sake of the course, we will keep a copy of the item list.
+    When Reloaded, despite the save, the treasure chest will re-give 2 objects*/
+    private List<ItemData> ITEMSCOPY = new List<ItemData>();
+    #endregion
+
     private bool isOpen = false;
     private ItemSpawner itemSpawner = null;
 
@@ -41,6 +47,9 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
     private void Start()
     {
         currentHealth = maxHealth;
+        #region TO REMOVE
+        ITEMSCOPY = new List<ItemData>(items);
+        #endregion
     }
 
     public void Activate(GameObject activator)
@@ -111,6 +120,10 @@ public class TreasureChest : MonoBehaviour, IActivatable, IDamageable, ISaveable
         {
             // Clear the current item list before loading the new one.
             items.Clear();
+
+            #region TO REMOVE
+            items = new List<ItemData>(ITEMSCOPY);
+            #endregion
 
             // Split the single string back into a list of individual IDs.
             List<string> itemIDs = savedItemString.Split(',').ToList();
