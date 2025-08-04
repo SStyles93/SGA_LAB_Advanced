@@ -68,9 +68,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Side_Emissive: 1
-    - _Side_Strength: 0.8
+    - _Side_Strength: 2
     - _Top_Emissive: 1
-    - _Top_Strength: 1.8
+    - _Top_Strength: 6.5
     - _WobbleX: 0.00012863097
     - _WobbleZ: -0.00012916411
     m_Colors:
