@@ -48,6 +48,14 @@ public class PlayerInventoryManager : MonoBehaviour
         /*IMPLEMENT: We want to call it when we open the inventory to be sure we are up to date when it shows*/
     }
 
+    #region /!\ TO DELETE /!\
+    public void AddItem(ItemData item)
+    {
+        inventory.Add(item);
+        UpdateStatus(item);
+    }
+    #endregion
+
     #region /!\ IMPLEMENT /!\ Add/Remove Item
     ///// <summary>
     ///// Adds an item to the inventory and updates the UI.

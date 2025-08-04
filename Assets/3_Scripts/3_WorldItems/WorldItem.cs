@@ -14,40 +14,9 @@ public class WorldItem : MonoBehaviour
 
     public ItemData GetItemData() => itemData;
 
-    /// <summary>
-    /// Called when the object becomes enabled and active.
-    /// This is where we register with the manager.
-    /// </summary>
-    private void OnEnable()
-    {
-        // Check if the WorldItemManager instance exists to avoid errors on game quit.
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Register(this);
-        }
-    }
-
-    /// <summary>
-    /// Called when the object becomes disabled or is destroyed.
-    /// This is where we unregister from the manager.
-    /// </summary>
-    private void OnDisable()
-    {
-        // Check if the WorldItemManager instance still exists.
-        // This is important because on game quit, the manager might be destroyed first.
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Unregister(this);
-        }
-    }
 
     private void Start()
     {
-        //Ensure registering of Item
-        if (WorldItemManager.Instance != null)
-        {
-            WorldItemManager.Instance.Register(this);
-        }
         SetTrailColour();
     }
 
@@ -68,7 +37,7 @@ public class WorldItem : MonoBehaviour
         if (other.TryGetComponent<PlayerInventoryManager>(out var inventoryManager))
         {
             // If the component was found, we can safely use it.
-            //inventoryManager.AddItem(itemData);
+            inventoryManager.AddItem(itemData);
 
             // The item has been collected, so we destroy the world object.
             Destroy(gameObject);
