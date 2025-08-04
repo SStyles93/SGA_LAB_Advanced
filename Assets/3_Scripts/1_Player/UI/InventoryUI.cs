@@ -26,29 +26,29 @@ public class InventoryUI : MonoBehaviour
 
     // State Management
     public bool isSelectionMode { get; private set; } = false;
-    private IngredientStation requestingStation;
 
-    // --- Subscribing and Unsubscribing to the Event ---
+    #region /!\IMPLEMENT/!\ (Un)Subscribe
 
-    private void OnEnable()
-    {
-        // Subscribe the RedrawUI method to the event.
-        // Now, whenever OnInventoryChanged is invoked, RedrawUI will be called automatically.
-        PlayerInventoryManager.OnInventoryChanged += RedrawUI;
-    }
+    //// --- Subscribing and Unsubscribing to the Event ---
 
-    private void OnDisable()
-    {
-        // Unsubscribe when the object is disabled or destroyed.
-        // This is crucial to prevent memory leaks and errors if the UI object is destroyed
-        // before the InventoryManager.
-        PlayerInventoryManager.OnInventoryChanged -= RedrawUI;
-    }
+    //private void OnEnable()
+    //{
+    //    /*IMPLEMENT: We want to subscribe to the delegate we created*/
+    //    //PlayerInventoryManager.
+    //}
 
-    private void Awake()
-    {
-        if (inventoryManager == null) inventoryManager = GetComponentInParent<PlayerInventoryManager>();
-    }
+    //private void OnDisable()
+    //{
+    //    /*IMPLEMENT: We want to UNsubscribe to the delegate*/
+    //    //PlayerInventoryManager.
+
+    //    // Unsubscribe when the object is disabled or destroyed.
+    //    // This is crucial to prevent memory leaks and errors if the UI object is destroyed
+    //    // before the InventoryManager.
+    //}
+
+    #endregion
+
 
     private void Start()
     {
@@ -91,29 +91,4 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
-
-    public void OpenForSelection(IngredientStation station)
-    {
-        isSelectionMode = true;
-        requestingStation = station;
-        inventoryPanel.SetActive(true);
-        if (titleText != null) titleText.text = "Select an Ingredient";
-    }
-
-    public void OnItemSelected(ItemData item)
-    {
-        if (isSelectionMode && requestingStation != null)
-        {
-            requestingStation.PlaceItem(item, this.inventoryManager);
-            CloseInventory();
-        }
-    }
-
-    public void CloseInventory()
-    {
-        isSelectionMode = false;
-        requestingStation = null;
-        inventoryPanel.SetActive(false);
-    }
-
 }

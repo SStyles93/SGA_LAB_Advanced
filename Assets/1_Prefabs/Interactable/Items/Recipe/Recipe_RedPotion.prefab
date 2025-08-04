@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2318603525256998113}
   - component: {fileID: 2652637772291108433}
   - component: {fileID: 3277176343012716975}
+  - component: {fileID: 484465386293468325}
   - component: {fileID: 7754460053800114193}
   - component: {fileID: 8701851769718074858}
-  - component: {fileID: 484465386293468325}
   - component: {fileID: 6258976393818814418}
   m_Layer: 10
   m_Name: Recipe_RedPotion
@@ -93,6 +93,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &484465386293468325
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3740198195123019763}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7, y: 0.2, z: 0.7}
+  m_Center: {x: 0, y: 0.034491617, z: -0.000000014901161}
 --- !u!64 &7754460053800114193
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -142,27 +163,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &484465386293468325
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3740198195123019763}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.7, y: 0.2, z: 0.7}
-  m_Center: {x: 0, y: 0.034491617, z: -0.000000014901161}
 --- !u!114 &6258976393818814418
 MonoBehaviour:
   m_ObjectHideFlags: 0

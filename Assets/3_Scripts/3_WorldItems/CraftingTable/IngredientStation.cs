@@ -33,13 +33,7 @@ public class IngredientStation : MonoBehaviour
             return;
         }
 
-        if (currentItem == null)
-        {
-            // If the station is EMPTY, open the inventory in selection mode.
-            // We tell the UI which station is asking for an item.
-            playerUI.OpenForSelection(this);
-        }
-        else
+        if (currentItem != null)
         {
             // If the station is FULL, return the item to the player.
             ReturnItemToPlayer(playerInventory);
@@ -67,7 +61,7 @@ public class IngredientStation : MonoBehaviour
         {
             Debug.LogWarning($"{item.name} is not an ingredient and cannot be placed here.");
             // If a non-ingredient was somehow selected, give it back to the player.
-            placerInventory.AddItem(item);
+            /*UNCOMMENT*///placerInventory.AddItem(item);
         }
     }
 
@@ -78,7 +72,7 @@ public class IngredientStation : MonoBehaviour
     {
         if (currentItem == null) return;
 
-        playerInventory.AddItem(currentItem);
+        /*UNCOMMENT*///playerInventory.AddItem(currentItem);
         Debug.Log($"Returned {currentItem.itemName} to {playerInventory.gameObject.name}.");
         currentItem = null;
         Destroy(currentWorldItem);

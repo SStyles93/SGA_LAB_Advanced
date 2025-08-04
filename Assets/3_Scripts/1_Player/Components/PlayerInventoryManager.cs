@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
 /// Manages the player's inventory. This script demonstrates safe and efficient
 /// coding practices, including dependency management and access modifiers.
 /// </summary>
-public class PlayerInventoryManager : MonoBehaviour, ISaveable
+public class PlayerInventoryManager : MonoBehaviour
 {
     // --- Good Practice: Cached References & [SerializeField] ---
     // Instead of using Find() or GetComponent() repeatedly in Update(), we assign
@@ -34,7 +33,8 @@ public class PlayerInventoryManager : MonoBehaviour, ISaveable
     public List<ItemData> GetInventory() => inventory;
     public List<CraftingRecipe> GetAvailableRecipes() => availableRecipes;
 
-    public static event Action OnInventoryChanged;
+    /*IMPLEMENT: We want a delegate(Action) to notify the change in inventory*/
+    //TIP: Use static and event. It will be called "OnInventoryChanged"
 
     /// <summary>
     /// Toggles the visibility of the Inventory
@@ -45,76 +45,84 @@ public class PlayerInventoryManager : MonoBehaviour, ISaveable
         visibleState = !visibleState;
         inventoryPannel.SetActive(visibleState);
         savePannel.SetActive(visibleState);
-        OnInventoryChanged?.Invoke();
+        /*IMPLEMENT: We want to call it when we open the inventory to be sure we are up to date when it shows*/
     }
 
-    /// <summary>
-    /// Adds an item to the inventory and updates the UI.
-    /// </summary>
-    /// <param name="itemToAdd">The ScriptableObject data of the item to add.</param>
-    public void AddItem(ItemData itemToAdd)
-    {
-        if (itemToAdd == null) return;
+    #region /!\ IMPLEMENT /!\ Add/Remove Item
+    ///// <summary>
+    ///// Adds an item to the inventory and updates the UI.
+    ///// </summary>
+    ///// <param name="itemToAdd">The ScriptableObject data of the item to add.</param>
+    ///*IMPLEMENT: A method to add the item to the inventory or availableRecipes lists*/
+    ////TIP: the method will have to be PUBLIC has NO return type and takes and ItemData as PARAMETER
+    //{
+    //    /*IMPLEMENT: Check for null*/
 
-        if (itemToAdd is CraftingRecipe recipe)
-        {
-            if (!availableRecipes.Contains(recipe))
-                availableRecipes.Add(recipe);
-        }
-        else
-        {
-            if (inventory.Count > 10)
-            {
-                Debug.Log("Inventory is full");
-                return;
-            }
+    //    /*IMPLEMENT a Pattern Matching*/
+    //    //TIP: Use if() and the Pattern Matching with the CraftingRecipe type
+    //    {
+    //        if (!availableRecipes.Contains(recipe))
+    //            availableRecipes.Add(recipe);
+    //    }
+    //    /*Otherwise it is a "standard" item*/
+    //    {
+    //        if (inventory.Count > 10)
+    //        {
+    //            Debug.Log("Inventory is full");
+    //            return;
+    //        }
 
-            inventory.Add(itemToAdd);
-            Debug.Log($"Added {itemToAdd.itemName} to inventory.");
+    //        /*IMPLEMENT: the addition of item to the inventory list*/
+    //        Debug.Log($"Added {/*IMPLEMENT: it's name*/} to inventory.");
 
-            OnInventoryChanged?.Invoke();
+    //        /*IMPLEMENT: Call the delegate*/
 
-            // Update the status text to show what was added.
-        }
-        UpdateStatus(itemToAdd);
-    }
+    //    }
+    //    // Update the status text to show what was added.
+    //    UpdateStatus(itemToAdd);
+    //}
 
-    /// <summary>
-    /// Removes an item from the inventory.
-    /// </summary>
-    public void RemoveItem(ItemData itemToRemove)
-    {
-        if (itemToRemove == null) return;
 
-        if (inventory.Remove(itemToRemove))
-        {
-            Debug.Log($"Removed {itemToRemove.itemName} from inventory.");
-            // Also broadcast the event on removal.
-            OnInventoryChanged?.Invoke();
-        }
-    }
+    ///// <summary>
+    ///// Removes an item from the inventory.
+    ///// </summary>
+    ///*IMPLEMENT: We want to be able to remove the items too*/
+    //{
+    //    /*IMPLEMENT: Check for null*/
 
-    /// <summary>
-    /// Uses an item from the inventory, triggering its effect and removing it.
-    /// </summary>
-    public void UseItem(ItemData itemToUse)
-    {
-        // Check if the item is actually a "UsableItemData"
-        // here, the (name "is" Type name) is called Pattern Matching introduced in C# 7.0
-        if (itemToUse is UsableItemData usableItem)
-        {
-            // Call the item's specific Use() method.
-            // We pass 'gameObject' which is the Player
-            usableItem.Use(this.gameObject);
+    //    /*IMPLEMENT: Remove the item from the list*/
+    //    //TIP: you can use the "listName".Remove() in an if() to check if removal was done or not :)
+    //    {
+    //        Debug.Log($"Removed {itemToRemove.itemName} from inventory.");
 
-            // After using the item, remove it from the inventory.
-            RemoveItem(itemToUse);
-        }
-        else
-        {
-            Debug.LogWarning($"{itemToUse.name} is not a usable item.");
-        }
-    }
+    //        /*IMPLEMENT: We have to notify the removal of the object now*/
+    //    }
+    //}
+    #endregion
+
+    #region /!\ UNCOMMENT when previous steps are DONE /!\
+    ///// <summary>
+    ///// Uses an item from the inventory, triggering its effect and removing it.
+    ///// </summary>
+    //public void UseItem(ItemData itemToUse)
+    //{
+    //    // Check if the item is actually a "UsableItemData"
+    //    // here, the (X is Type name) is called Pattern Matching introduced in C# 7.0
+    //    if (itemToUse is UsableItemData usableItem)
+    //    {
+    //        // Call the item's specific Use() method.
+    //        // We pass 'gameObject' which is the Player
+    //        usableItem.Use(this.gameObject);
+
+    //        // After using the item, remove it from the inventory.
+    //        RemoveItem(itemToUse);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogWarning($"{itemToUse.name} is not a usable item.");
+    //    }
+    //}
+    #endregion
 
     /// <summary>
     /// Updates the status text with information about the last added item.
@@ -163,78 +171,4 @@ public class PlayerInventoryManager : MonoBehaviour, ISaveable
                 break;
         }
     }
-
-    #region ISaveable Implementation
-
-    public Dictionary<string, string> CaptureState()
-    {
-        // Get a list of all the ItemIDs from the current inventory.
-        // The LINQ Select method is a clean, modern way to do this.
-        List<string> itemIDs = inventory.Select(item => item.ItemID).ToList();
-        
-        //We are adding the list of recipes to the items list (since recipes are also items
-        itemIDs.AddRange(availableRecipes.Select(item => item.ItemID).ToList());
-
-        // Join the list of IDs into a single string, separated by commas.
-        // This is a robust way to store a list of strings in our key-value pair system.
-        // Example: "item001,item003,item001,item002"
-        string inventoryStateString = string.Join(",", itemIDs);
-
-        // Return the state in the required dictionary format.
-        return new Dictionary<string, string>
-        {
-            { "inventory", inventoryStateString }
-        };
-    }
-
-    /// <summary>
-    /// Restores the inventory's state from the loaded data.
-    /// </summary>
-    /// <param name="state">The dictionary containing the saved inventory string.</param>
-    public void RestoreState(Dictionary<string, string> state)
-    {
-        // Check if the saved data contains an "inventory" key.
-        if (state.TryGetValue("inventory", out string savedInventoryString))
-        {
-            // Clear the current inventory and recipe list before loading the new one.
-            inventory.Clear();
-            availableRecipes.Clear();
-
-            // If the saved string is empty, there's nothing to load.
-            if (string.IsNullOrEmpty(savedInventoryString))
-            {
-                OnInventoryChanged?.Invoke(); // Still invoke to update the UI to be empty.
-                return;
-            }
-
-            // Split the single string back into a list of individual IDs.
-            List<string> itemIDs = savedInventoryString.Split(',').ToList();
-
-            // --- Find all ItemData assets in the project ---
-            // This is the most complex part. We need a way to map an ID back to an asset.
-            // In production we probably would use Unity's Adressables
-            var allItems = Resources.FindObjectsOfTypeAll<ItemData>().ToDictionary(item => item.ItemID);
-
-            // Re-populate the inventory list using the loaded IDs.
-            foreach (string id in itemIDs)
-            {
-                if (allItems.TryGetValue(id, out ItemData itemAsset))
-                {
-                    if( itemAsset is CraftingRecipe recipe) availableRecipes.Add(recipe);
-                    else inventory.Add(itemAsset);
-                }
-                else
-                {
-                    Debug.LogWarning($"Could not find ItemData asset with ID: {id}");
-                }
-            }
-
-            Debug.Log($"Inventory loaded with {inventory.Count} items and {availableRecipes.Count} available recipes.");
-
-            // After loading the inventory, broadcast the change to update the UI.
-            OnInventoryChanged?.Invoke();
-        }
-    }
-    #endregion
-
 }

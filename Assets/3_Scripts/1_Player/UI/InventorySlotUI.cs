@@ -29,35 +29,36 @@ public class InventorySlotUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Method used by button for when the object is clicked in UI Inventory
-    /// </summary>
-    public void OnSlotClicked()
-    {
-        if (item == null || inventoryManager == null || inventoryUI == null) return;
+    #region /!\ UNCOMMENT when PlayerInventoryManager is done /!\
+    ///// <summary>
+    ///// Method used by button for when the object is clicked in UI Inventory
+    ///// </summary>
+    //public void OnSlotClicked()
+    //{
+    //    if (item == null || inventoryManager == null || inventoryUI == null) return;
 
-        // Check if we are in selection mode
-        if (inventoryUI.isSelectionMode)
-        {
-            // Check if Item is an Ingredient
-            if (item.itemType == ItemType.Ingredient)
-            {
-                inventoryManager.RemoveItem(item);
-                inventoryUI.OnItemSelected(item);
-            }
-            else
-            {
-                Debug.Log($"{item.name} is not an ingredient.");
-            }
-        }
-        else
-        {
-            // Check if the item is a UsableItemData (like a potion).
-            if (item is UsableItemData)
-            {
-                // If it's usable, call the UseItem method.
-                inventoryManager.UseItem(item);
-            }
-        }
-    }
+    //    // Check if we are in selection mode
+    //    if (inventoryUI.isSelectionMode)
+    //    {
+    //        // Check if Item is an Ingredient
+    //        if (item.itemType == ItemType.Ingredient)
+    //        {
+    //            /*UNCOMMENT*///inventoryManager.RemoveItem(item);
+    //        }
+    //        else
+    //        {
+    //            Debug.Log($"{item.name} is not an ingredient.");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        // Check if the item is a UsableItemData (like a potion).
+    //        if (item is UsableItemData)
+    //        {
+    //            // If it's usable, call the UseItem method.
+    //            inventoryManager.UseItem(item);
+    //        }
+    //    }
+    //}
+    #endregion
 }

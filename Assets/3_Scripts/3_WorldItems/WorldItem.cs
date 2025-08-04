@@ -1,21 +1,18 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 /// <summary>
 /// Represents an item that exists in the game world and can be picked up.
 /// Demonstrates the use of TryGetComponent for safe component access.
 /// </summary>
 [RequireComponent(typeof(Collider))] // Ensures this object always has a collider.
-public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
+public class WorldItem : MonoBehaviour
 {
     [Tooltip("The data asset that defines this item.")]
     [SerializeField]
     private ItemData itemData;
 
     public ItemData GetItemData() => itemData;
-
-    public event Action<string,bool> OnMouseOverObject;
-
 
     /// <summary>
     /// Called when the object becomes enabled and active.
@@ -44,7 +41,6 @@ public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
         }
     }
 
-
     private void Start()
     {
         //Ensure registering of Item
@@ -55,45 +51,28 @@ public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
         SetTrailColour();
     }
 
+    private void Awake()
+    {
+        // Ensure the collider is a trigger so it doesn't block the player.
+        GetComponent<Collider>().isTrigger = true;
+    }
+
+    // This method is called by Unity when another collider enters this object's trigger.
     private void OnTriggerEnter(Collider other)
     {
-        if(other != null && other.CompareTag("Player"))
+        // --- Good Practice: TryGetComponent ---
+        // TryGetComponent is the safest way to get a component. It returns true
+        // and assigns the component to the 'out' variable if it's found.
+        // If not found, it returns false and does nothing. This prevents
+        // "NullReferenceException" errors if the colliding object isn't the player.
+        if (other.TryGetComponent<PlayerInventoryManager>(out var inventoryManager))
         {
-            other.GetComponent<PlayerInventoryManager>().AddItem(this.itemData);
-            Destroy(this.gameObject);
+            // If the component was found, we can safely use it.
+            //inventoryManager.AddItem(itemData);
+
+            // The item has been collected, so we destroy the world object.
+            Destroy(gameObject);
         }
-    }
-
-    /*UNCOMMENT*/
-    //public void Collect(PlayerInventoryManager collectorInventory)
-    //{
-    //    // 1. Check if the dependencies are valid.
-    //    if (itemData == null)
-    //    {
-    //        Debug.LogError($"WorldItem on {gameObject.name} is missing its ItemData!");
-    //        return;
-    //    }
-    //    if (collectorInventory == null)
-    //    {
-    //        Debug.LogError($"Collect method was called with a null collectorInventory on {gameObject.name}!");
-    //        return;
-    //    }
-
-    //    // 2. Add the item to the CORRECT player's inventory.
-    //    collectorInventory.AddItem(itemData);
-    //    Debug.Log($"{collectorInventory.gameObject.name} collected {itemData.itemName}.");
-    //}
-
-    private void OnMouseEnter()
-    {
-        if (gameObject.layer != 10) return;
-        OnMouseOverObject?.Invoke(itemData.itemName, true);
-    }
-
-    private void OnMouseExit()
-    {
-        if (gameObject.layer != 10) return;
-        OnMouseOverObject?.Invoke(itemData.itemName, false);
     }
 
     /// <summary>
