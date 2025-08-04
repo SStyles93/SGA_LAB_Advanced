@@ -6,7 +6,7 @@ using System;
 /// Demonstrates the use of TryGetComponent for safe component access.
 /// </summary>
 [RequireComponent(typeof(Collider))] // Ensures this object always has a collider.
-public class WorldItem : MonoBehaviour, ICollectable
+public class WorldItem : MonoBehaviour /*UNCOMMENT*//*,ICollectable*/
 {
     [Tooltip("The data asset that defines this item.")]
     [SerializeField]
@@ -55,24 +55,34 @@ public class WorldItem : MonoBehaviour, ICollectable
         SetTrailColour();
     }
 
-    public void Collect(PlayerInventoryManager collectorInventory)
+    private void OnTriggerEnter(Collider other)
     {
-        // 1. Check if the dependencies are valid.
-        if (itemData == null)
+        if(other != null && other.CompareTag("Player"))
         {
-            Debug.LogError($"WorldItem on {gameObject.name} is missing its ItemData!");
-            return;
+            other.GetComponent<PlayerInventoryManager>().AddItem(this.itemData);
+            Destroy(this.gameObject);
         }
-        if (collectorInventory == null)
-        {
-            Debug.LogError($"Collect method was called with a null collectorInventory on {gameObject.name}!");
-            return;
-        }
-
-        // 2. Add the item to the CORRECT player's inventory.
-        collectorInventory.AddItem(itemData);
-        Debug.Log($"{collectorInventory.gameObject.name} collected {itemData.itemName}.");
     }
+
+    /*UNCOMMENT*/
+    //public void Collect(PlayerInventoryManager collectorInventory)
+    //{
+    //    // 1. Check if the dependencies are valid.
+    //    if (itemData == null)
+    //    {
+    //        Debug.LogError($"WorldItem on {gameObject.name} is missing its ItemData!");
+    //        return;
+    //    }
+    //    if (collectorInventory == null)
+    //    {
+    //        Debug.LogError($"Collect method was called with a null collectorInventory on {gameObject.name}!");
+    //        return;
+    //    }
+
+    //    // 2. Add the item to the CORRECT player's inventory.
+    //    collectorInventory.AddItem(itemData);
+    //    Debug.Log($"{collectorInventory.gameObject.name} collected {itemData.itemName}.");
+    //}
 
     private void OnMouseEnter()
     {

@@ -28,7 +28,7 @@ public class HealingPotionData : UsableItemData
         // Find the health component on the user and heal them.
         if (user.TryGetComponent<PlayerHealth>(out var playerHealth))
         {
-            playerHealth.StartHealing(this);
+            playerHealth.Heal(healthToRestore);
         }
     }
 }

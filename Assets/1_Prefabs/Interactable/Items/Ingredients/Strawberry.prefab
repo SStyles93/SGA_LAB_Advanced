@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 7601197051715415351}
   - component: {fileID: 5716553085927148119}
   - component: {fileID: 8406190934955087465}
+  - component: {fileID: 6664138520656383163}
   - component: {fileID: 8439326112405911012}
   - component: {fileID: 8352822662020044798}
   - component: {fileID: 4036667000591074062}
-  - component: {fileID: 6664138520656383163}
   m_Layer: 10
   m_Name: Strawberry
   m_TagString: Untagged
@@ -92,6 +92,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &6664138520656383163
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8747181197904860207}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.28
+  m_Center: {x: 0.000000007450581, y: 0, z: 0}
 --- !u!64 &8439326112405911012
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -154,27 +175,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: bc9fabc5ba3918540b81dcb812172758, type: 2}
---- !u!135 &6664138520656383163
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8747181197904860207}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.28
-  m_Center: {x: 0.000000007450581, y: 0, z: 0}
 --- !u!1001 &2892411650066608396
 PrefabInstance:
   m_ObjectHideFlags: 0
