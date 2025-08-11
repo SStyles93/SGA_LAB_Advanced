@@ -1,6 +1,6 @@
 # Advanced Unity Programming: The Alchemist's Workshop
 
-![Project Banner]()
+![Project Banner](https://github.com/SStyles93/SGA_LAB_Advanced/blob/main/SgaLab_Teddy.png)
 
 This repository contains the project files for "The Alchemist's Workshop," a 4-hour course designed to teach advanced programming principles and system architecture in Unity. Students will progressively build a small, interactive scene where a player can move, manage an inventory, interact with objects, and save their progress.
 
