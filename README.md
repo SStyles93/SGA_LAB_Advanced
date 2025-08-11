@@ -82,7 +82,8 @@ The project is divided into branches or folders, each representing a stage of th
 3.  **Install Dependencies:** If prompted, install the **Newtonsoft Json.NET** package via the Unity Package Manager (`Window > Package Manager`).
 4.  **Navigate the Scenes:** Open the `Scenes` folder in the Project window. You can start with `1_Attributes_Scene` and progress through to `5_Final_Scene`. Each scene is pre-configured for its corresponding lesson.
 5.  **Follow the Code:** Open the scripts mentioned in each section's objectives. You will find `// TO-DO:` comments guiding you on what code to write.
-6.  **Jump sections** If you are stuck you can use the different tags (1.0 to 5.0) to go to the corrected versions of each chapter. (You can use the .bat/.ps1/.sh scripts to jump with gototag.bat and the version e.g. gototag.bat\ 2.0 -> chapter II
+6.  **Jump sections** If you are stuck you can use the different tags (1.0 to 5.0) to go to the corrected versions of each chapter. You can use the .bat/.ps1/.sh scripts to jump with gototag.bat and the version 
+    (e.g. gototag.bat\ 2.0 -> chapter II)
 
 Happy coding
 
